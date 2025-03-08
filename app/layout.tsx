@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans, Manrope } from 'next/font/google';
 import './globals.css';
 
@@ -20,14 +20,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const hell = '';
   return (
     <html lang="en">
       <body
-        className={`${PlusJakartaSans.className}  ${ManRopeFont.className} antialiased`}
+        className={`${PlusJakartaSans.className} ${ManRopeFont.className} antialiased`}
       >
         {children}
       </body>
     </html>
-  );
+  )
 }
