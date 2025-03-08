@@ -1,7 +1,9 @@
+# Project Name
+
 ## Version
+
 - Node Version [20.16.0]
 - Pnpm Version [10.6.1]
-
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
@@ -25,6 +27,47 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load
 [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Linting & Pre-Commit Checks
+
+This project enforces **linting and commit message formatting** using `pnpm run lint` and a pre-commit hook.
+
+### **Running Linting**
+
+```bash
+pnpm run lint
+```
+
+If linting fails, **fix the errors before committing.**
+
+### **Commit Message Format**
+
+Commit messages must follow this format:
+
+```bash
+type: "Short commit message (30-100 characters)"
+```
+
+#### **Allowed types:**
+
+- `feat` - Adding a new feature
+- `fix` - Fixing a bug
+- `docs` - Documentation changes
+- `style` - Code style changes (formatting, missing semicolons)
+- `refactor` - Code refactoring without behavior changes
+- `perf` - Performance improvements
+- `test` - Adding or modifying tests
+- `chore` - Maintenance tasks (e.g., build process changes)
+- `ci` - Changes to CI/CD setup
+- `build` - Build system changes
+- `revert` - Reverting previous changes
+
+#### **Example:**
+
+```bash
+feat: "Implemented API for user authentication"
+fix: "Resolved crash issue in the login flow"
+```
 
 ## Learn More
 
