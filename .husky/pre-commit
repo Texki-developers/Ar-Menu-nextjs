@@ -30,7 +30,7 @@ echo -e "${GREEN}✅🎉🥳 Linting passed.${RESET}"
 commit_msg_file=".git/COMMIT_EDITMSG"
 commit_msg=$(head -n1 "$commit_msg_file")
 
-echo "docs: add husky and readme" > .git/COMMIT_EDITMSG
+echo "docs: add husky and readme" > .git/COMMIT_EDITMSG 
 
 # Check format: must start with 'feat:', 'fix:', 'docs:', etc., followed by a message
 if ! echo "$commit_msg" | grep -E "^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert): .+$" > /dev/null; then
