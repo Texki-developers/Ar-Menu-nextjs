@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Manrope } from 'next/font/google';
 import './globals.css';
 
@@ -28,5 +28,5 @@ export default function RootLayout({
         {children}
       </body>
     </html>
-  )
+  );
 }
