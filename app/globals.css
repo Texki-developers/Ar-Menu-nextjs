@@ -1,26 +1,96 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+/* font styles */
+.text-primary {
+  @apply font-manrope font-bold text-lg leading-[29px] tracking-[0px];
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.text-secondary {
+  @apply font-manrope font-medium text-sm leading-[100%] tracking-[0%];
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.text-body {
+  @apply font-manrope font-normal text-md leading-[135%] tracking-[0%] align-middle;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.text-heading {
+  @apply font-plusJakarta font-bold text-heading leading-[20.67px] tracking-[-0.29px];
+}
+
+.text-description {
+  @apply font-manrope font-normal text-description leading-[18px] tracking-[0px];
+}
+
+.text-title {
+  @apply font-manrope font-semibold text-title leading-[15.98px] tracking-[0px];
+}
+
+/* Custom classes based on Figma styles */
+
+/* Container dimensions */
+.figma-container {
+  @apply w-189 h-29 gap-6;
+}
+
+/* Typography styles */
+.text-primary {
+  @apply font-manrope font-bold text-lg leading-[29px] tracking-[0px];
+}
+
+.text-secondary {
+  @apply font-manrope font-medium text-sm leading-[100%] tracking-[0%];
+}
+
+.text-body {
+  @apply font-manrope font-normal text-md leading-[135%] tracking-[0%] align-middle;
+}
+
+.text-heading {
+  @apply font-plusJakarta font-bold text-heading leading-[20.67px] tracking-[-0.29px];
+}
+
+.text-description {
+  @apply font-manrope font-normal text-description leading-[18px] tracking-[0px];
+}
+
+.text-title {
+  @apply font-manrope font-semibold text-title leading-[15.98px] tracking-[0px];
+}
+
+.btn-shadow-xs {
+  box-shadow: 0px 0.34px 0.75px 0px rgba(255, 90, 30, 0.03);
+}
+
+.btn-shadow-sm {
+  box-shadow: 0px 1.03px 2.27px 0px rgba(255, 90, 30, 0.09);
+}
+
+.btn-shadow-md {
+  box-shadow: 0px 2.72px 5.99px 0px rgba(255, 90, 30, 0.24);
+}
+
+.btn-shadow-lg {
+  box-shadow: 0px 8.53px 18.77px 0px rgba(255, 90, 30, 0.30);
+}
+
+.btn-primary {
+  @apply bg-primary-500 text-white font-manrope font-bold py-2 px-4 rounded;
+  box-shadow: 0px 0.34px 0.75px 0px rgba(255, 90, 30, 0.03),
+    0px 1.03px 2.27px 0px rgba(255, 90, 30, 0.09),
+    0px 2.72px 5.99px 0px rgba(255, 90, 30, 0.24),
+    0px 8.53px 18.77px 0px rgba(255, 90, 30, 0.30);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  @apply bg-primary-300;
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  @apply bg-primary-400;
+  transform: translateY(1px);
+  box-shadow: 0px 0.34px 0.75px 0px rgba(255, 90, 30, 0.03),
+    0px 1.03px 2.27px 0px rgba(255, 90, 30, 0.09);
 }
