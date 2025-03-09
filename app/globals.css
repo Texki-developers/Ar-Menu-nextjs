@@ -1,61 +1,82 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
+@theme {
+  --color-primary-500: #ff6229;
+  --color-primary-400: #fb5d35;
+  --color-primary-300: #ff3c0b;
+
+  --color-black-500: #222222;
+
+  --color-gray-500: #747272;
+  --color-gray-400: #6d6d6d;
+  --color-gray-300: #c7c7c7;
+  --color-gray-200: #8080801f;
+  --color-gray-100: #f8f6f6;
+
+  --color-background-500: #ffffff;
+
+  --font-family-manrope: 'Manrope', sans-serif;
+  --font-family-plusJakarta: 'Plus Jakarta Sans', sans-serif;
+
+  --text-lg: 18px;
+  --text-md: 16px;
+  --text-sm: 12px;
+  --text-heading: 18px;
+  --text-description: 12px;
+  --text-title: 12px;
+
+  --spacing-6: 6px;
+  --spacing-29: 29px;
+  --spacing-189: 189px;
+}
 
 /* font styles */
 .text-primary {
-  @apply font-manrope font-bold text-lg leading-[29px] tracking-[0px];
+  @apply font-family-manrope text-lg leading-[29px] font-bold tracking-[0px];
 }
 
 .text-secondary {
-  @apply font-manrope font-medium text-sm leading-[100%] tracking-[0%];
+  @apply font-family-manrope text-sm leading-[100%] font-medium tracking-[0%];
 }
 
 .text-body {
-  @apply font-manrope font-normal text-md leading-[135%] tracking-[0%] align-middle;
+  @apply font-family-manrope text-md align-middle leading-[135%] font-normal tracking-[0%];
 }
 
 .text-heading {
-  @apply font-plusJakarta font-bold text-heading leading-[20.67px] tracking-[-0.29px];
+  @apply font-family-plusJakarta text-heading leading-[20.67px] font-bold tracking-[-0.29px];
 }
 
 .text-description {
-  @apply font-manrope font-normal text-description leading-[18px] tracking-[0px];
+  @apply font-family-manrope text-description leading-[18px] font-normal tracking-[0px];
 }
 
 .text-title {
-  @apply font-manrope font-semibold text-title leading-[15.98px] tracking-[0px];
+  @apply font-family-manrope text-title leading-[15.98px] font-semibold tracking-[0px];
 }
 
-/* Custom classes based on Figma styles */
-
-/* Container dimensions */
-.figma-container {
-  @apply w-189 h-29 gap-6;
-}
-
-/* Typography styles */
 .text-primary {
-  @apply font-manrope font-bold text-lg leading-[29px] tracking-[0px];
+  @apply font-family-manrope text-lg leading-[29px] font-bold tracking-[0px];
 }
 
 .text-secondary {
-  @apply font-manrope font-medium text-sm leading-[100%] tracking-[0%];
+  @apply font-family-manrope text-sm leading-[100%] font-medium tracking-[0%];
 }
 
 .text-body {
-  @apply font-manrope font-normal text-md leading-[135%] tracking-[0%] align-middle;
+  @apply font-family-manrope text-md align-middle leading-[135%] font-normal tracking-[0%];
 }
 
 .text-heading {
-  @apply font-plusJakarta font-bold text-heading leading-[20.67px] tracking-[-0.29px];
+  @apply font-family-plusJakarta text-heading leading-[20.67px] font-bold tracking-[-0.29px];
 }
 
 .text-description {
-  @apply font-manrope font-normal text-description leading-[18px] tracking-[0px];
+  @apply font-family-manrope text-description leading-[18px] font-normal tracking-[0px];
 }
 
 .text-title {
-  @apply font-manrope font-semibold text-title leading-[15.98px] tracking-[0px];
+  @apply font-family-manrope text-title leading-[15.98px] font-semibold tracking-[0px];
 }
 
 .btn-shadow-xs {
@@ -71,15 +92,16 @@
 }
 
 .btn-shadow-lg {
-  box-shadow: 0px 8.53px 18.77px 0px rgba(255, 90, 30, 0.30);
+  box-shadow: 0px 8.53px 18.77px 0px rgba(255, 90, 30, 0.3);
 }
 
 .btn-primary {
-  @apply bg-primary-500 text-white font-manrope font-bold py-2 px-4 rounded;
-  box-shadow: 0px 0.34px 0.75px 0px rgba(255, 90, 30, 0.03),
+  @apply bg-primary-500 font-family-manrope rounded px-4 py-2 font-bold text-white;
+  box-shadow:
+    0px 0.34px 0.75px 0px rgba(255, 90, 30, 0.03),
     0px 1.03px 2.27px 0px rgba(255, 90, 30, 0.09),
     0px 2.72px 5.99px 0px rgba(255, 90, 30, 0.24),
-    0px 8.53px 18.77px 0px rgba(255, 90, 30, 0.30);
+    0px 8.53px 18.77px 0px rgba(255, 90, 30, 0.3);
   transition: all 0.2s ease-in-out;
 }
 
@@ -91,6 +113,7 @@
 .btn-primary:active {
   @apply bg-primary-400;
   transform: translateY(1px);
-  box-shadow: 0px 0.34px 0.75px 0px rgba(255, 90, 30, 0.03),
+  box-shadow:
+    0px 0.34px 0.75px 0px rgba(255, 90, 30, 0.03),
     0px 1.03px 2.27px 0px rgba(255, 90, 30, 0.09);
 }
