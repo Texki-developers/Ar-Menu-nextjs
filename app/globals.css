@@ -30,7 +30,30 @@
   --spacing-189: 189px;
 }
 
+button {
+  cursor: pointer;
+}
+
+.categories-wrapper {
+  overflow-x: auto; /* Allow horizontal scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer & Edge */
+}
+
+.categories-wrapper::-webkit-scrollbar {
+  display: none !important;
+  width: 0;
+  height: 0;
+}
+
+.swiper-wrapper {
+  padding-bottom: 0.5rem;
+}
+
 /* font styles */
+.text-large {
+  @apply font-family-manrope text-2xl leading-[29px] font-bold tracking-[0px];
+}
 .text-primary {
   @apply font-family-manrope text-lg leading-[29px] font-bold tracking-[0px];
 }
@@ -45,10 +68,6 @@
 
 .text-heading {
   @apply font-family-plusJakarta text-heading leading-[20.67px] font-bold tracking-[-0.29px];
-}
-
-.text-description {
-  @apply font-family-manrope text-description leading-[18px] font-normal tracking-[0px];
 }
 
 .text-title {
@@ -68,13 +87,16 @@
 }
 
 .text-heading {
-  @apply font-family-plusJakarta text-heading leading-[20.67px] font-bold tracking-[-0.29px];
+  @apply font-family-plusJakarta text-[20px] leading-[20.67px] font-bold tracking-[-0.29px];
 }
 
 .text-description {
-  @apply font-family-manrope text-description leading-[18px] font-normal tracking-[0px];
+  @apply font-family-manrope text-[14px] leading-[18px] font-normal tracking-[0px];
 }
 
+.text-small {
+  @apply font-family-manrope text-[12px] leading-[18px] font-normal tracking-[0px];
+}
 .text-title {
   @apply font-family-manrope text-title leading-[15.98px] font-semibold tracking-[0px];
 }
@@ -96,7 +118,7 @@
 }
 
 .btn-primary {
-  @apply bg-primary-500 font-family-manrope rounded px-4 py-2 font-bold text-white;
+  @apply bg-primary-500 font-family-manrope rounded-full px-4 py-2 font-bold text-white;
   box-shadow:
     0px 0.34px 0.75px 0px rgba(255, 90, 30, 0.03),
     0px 1.03px 2.27px 0px rgba(255, 90, 30, 0.09),
@@ -116,4 +138,17 @@
   box-shadow:
     0px 0.34px 0.75px 0px rgba(255, 90, 30, 0.03),
     0px 1.03px 2.27px 0px rgba(255, 90, 30, 0.09);
+}
+
+.btn-secondary {
+  @apply font-family-manrope rounded border-[1px] border-[rgba(128,128,128,0.12)] bg-[rgba(248,246,246,1)] px-4 py-2 font-normal text-black;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-secondary:hover {
+  @apply border-primary-300 text-primary-300 font-[600];
+}
+
+.btn-secondary:active {
+  @apply border-primary-300 text-primary-300 font-[600];
 }

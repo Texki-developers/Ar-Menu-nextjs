@@ -23,9 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${PlusJakartaSans.className} ${ManRopeFont.className} antialiased`}
+        className={`${PlusJakartaSans.className} ${ManRopeFont.className} flex w-[100%] justify-center antialiased`}
       >
-        {children}
+        <div className="min-h-[100vh] w-[100%] max-w-[450px]">{children}</div>
       </body>
     </html>
   );
