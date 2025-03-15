@@ -6,7 +6,7 @@ import 'swiper/css/free-mode';
 import { FreeMode } from 'swiper/modules';
 import SideFoodCard from './SideFoodCard';
 
-export default function RecommendedSwiper() {
+export default function RecommendedSwiper({ items }) {
   return (
     <div className="w-full">
       <Swiper
@@ -18,7 +18,7 @@ export default function RecommendedSwiper() {
       >
         {Array.from({ length: 15 }).map((_, i) => (
           <SwiperSlide key={i} className="w-auto">
-            <SideFoodCard />
+            <SideFoodCard items={items} />
           </SwiperSlide>
         ))}
       </Swiper>

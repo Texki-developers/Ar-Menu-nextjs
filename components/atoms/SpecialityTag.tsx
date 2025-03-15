@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { HugeiconsChefHat } from '../Icons';
+// import { HugeiconsChefHat } from '../Icons';
 
 export default function SpecialityTag({
   tag,

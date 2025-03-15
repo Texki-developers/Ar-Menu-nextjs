@@ -1,22 +1,23 @@
 'use client';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import SpecialityTag from './atoms/SpecialityTag';
 import { HugeiconsChefHat, MageBox3dDownload } from './Icons';
+import ModelViewer from './modelViewer';
+import { ProductType } from '@/app/types/product.types';
+import { IMAGE_URL } from '@/app/lib/axios';
 
-export default function FoodCard({
-  description = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quo dolores dolorum voluptatum quam non rem excepturi sit, vitae iste.',
-}) {
+export default function FoodCard({ items }: { items: ProductType }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const maxChars = 80;
 
   const [isExpanded, setExpanded] = useState<boolean>(false);
 
-  const shouldTruncate = description.length > maxChars;
+  const shouldTruncate = items?.desc.length > maxChars;
   const displayText =
     isExpanded || !shouldTruncate
-      ? description
-      : description.slice(0, maxChars) + '...';
+      ? items?.desc
+      : items?.desc.slice(0, maxChars) + '...';
 
   return (
     <div
@@ -28,7 +29,7 @@ export default function FoodCard({
           <div className="relative aspect-square h-[12px] w-[12px]">
             <Image src="/assets/veg.png" alt="veg food" fill />
           </div>
-          <p className="text-body font-[600_!important]">Chicken Dynamite</p>
+          <p className="text-body font-[600_!important]">{items?.name}</p>
         </div>
 
         <div>
@@ -39,16 +40,16 @@ export default function FoodCard({
                 onClick={() => setExpanded(true)}
                 className="inline bg-white pl-1 text-blue-500"
               >
-                Show More
+                {shouldTruncate && 'Show More'}
               </button>
             )}
           </p>
         </div>
 
         <p className="text-body mt-auto flex items-center gap-1 font-[600_!important]">
-          AED 100{' '}
+          AED {items.offer_price}{' '}
           <span className="text-description text-[#c2c2c2] line-through">
-            AED 150
+            AED {items.actual_price}
           </span>
         </p>
       </div>
@@ -64,11 +65,16 @@ export default function FoodCard({
           <MageBox3dDownload className="text-[1rem]" />
           <span>View in Table</span>
         </button>
-        <Image
-          src="/assets/food.jpeg"
+        {/* <Image
+          src={`http://localhost:8001/files/` + items?.image}
           className="rounded-[16px]"
           fill
           alt="food-cafe"
+        /> */}
+
+        <ModelViewer
+          src={`${IMAGE_URL}${items?.three_usdz}`}
+          alt={items?.name}
         />
       </div>
     </div>

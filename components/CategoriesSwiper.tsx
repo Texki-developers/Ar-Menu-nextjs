@@ -1,38 +1,15 @@
 import React from 'react';
 
-const categories = [
-  {
-    title: 'Starters',
-  },
-  {
-    title: 'Soups',
-  },
-  {
-    title: 'Appetizer',
-  },
-  {
-    title: 'Main Course',
-  },
-  {
-    title: 'Pasta',
-  },
-  {
-    title: 'Chinese',
-  },
-  {
-    title: 'Desserts',
-  },
-];
-
-export default function CategoriesSwiper() {
+export default function CategoriesSwiper({ categories, setCategory }) {
   return (
     <div className="categories-wrapper flex flex-nowrap gap-[8px] overflow-x-auto px-[1rem]">
       {categories.map((category, index) => (
         <button
           key={index}
+          onClick={() => setCategory(category)}
           className="btn-secondary text-description text-nowrap"
         >
-          {category.title}
+          {category}
         </button>
       ))}
     </div>

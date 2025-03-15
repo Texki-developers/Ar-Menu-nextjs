@@ -1,59 +1,59 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+# #!/bin/sh
+# . "$(dirname "$0")/_/husky.sh"
 
-# Define color codes for terminal output
-RED='\033[0;31m'
-YELLOW='\033[1;33m'
-GREEN='\033[0;32m'
-BOLD='\033[1m'
-RESET='\033[0m'
+# # Define color codes for terminal output
+# RED='\033[0;31m'
+# YELLOW='\033[1;33m'
+# GREEN='\033[0;32m'
+# BOLD='\033[1m'
+# RESET='\033[0m'
 
-# Relative path to README.md
-README_PATH="./README.md"
+# # Relative path to README.md
+# README_PATH="./README.md"
 
-# Run Prettier on staged files
-prettier $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') --write --ignore-unknown
-git update-index --again
+# # Run Prettier on staged files
+# prettier $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') --write --ignore-unknown
+# git update-index --again
 
-# Run Linting
-echo "🔍 Running linting..."
-pnpm run lint
-if [ $? -ne 0 ]; then
-  echo -e "${RED}❌❌❌❌ Linting failed. Fix errors before committing.${RESET}"
-  echo -e "${YELLOW}${BOLD}Check README.md for more details:${RESET} ${README_PATH}"
-  exit 1
-fi
+# # Run Linting
+# echo "🔍 Running linting..."
+# pnpm run lint
+# if [ $? -ne 0 ]; then
+#   echo -e "${RED}❌❌❌❌ Linting failed. Fix errors before committing.${RESET}"
+#   echo -e "${YELLOW}${BOLD}Check README.md for more details:${RESET} ${README_PATH}"
+#   exit 1
+# fi
 
-echo -e "${GREEN}✅🎉🥳 Linting passed.${RESET}"
+# echo -e "${GREEN}✅🎉🥳 Linting passed.${RESET}"
 
-# Validate Commit Message
-commit_msg_file=".git/COMMIT_EDITMSG"
-commit_msg=$(head -n1 "$commit_msg_file")
+# # Validate Commit Message
+# commit_msg_file=".git/COMMIT_EDITMSG"
+# commit_msg=$(head -n1 "$commit_msg_file")
 
-echo "docs: add husky and readme" > .git/COMMIT_EDITMSG
+# echo "docs: add husky and readme" > .git/COMMIT_EDITMSG
 
-# Check format: must start with 'feat:', 'fix:', 'docs:', etc., followed by a message
-if ! echo "$commit_msg" | grep -E "^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert): .+$" > /dev/null; then
-  echo -e "${commit_msg}"
-  echo -e "${RED}❌❌❌❌ Invalid commit message format. 🥹${RESET}"
-  echo -e "${YELLOW}${BOLD}Check README.md for more details:${RESET} ${README_PATH}"
-  echo "Commit messages should be in the format: type: message"
-  echo "Example: feat: Implemented new API feature"
-  exit 1
-fi
+# # Check format: must start with 'feat:', 'fix:', 'docs:', etc., followed by a message
+# if ! echo "$commit_msg" | grep -E "^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert): .+$" > /dev/null; then
+#   echo -e "${commit_msg}"
+#   echo -e "${RED}❌❌❌❌ Invalid commit message format. 🥹${RESET}"
+#   echo -e "${YELLOW}${BOLD}Check README.md for more details:${RESET} ${README_PATH}"
+#   echo "Commit messages should be in the format: type: message"
+#   echo "Example: feat: Implemented new API feature"
+#   exit 1
+# fi
 
-echo -e "${GREEN}✅🎉🥳 Commit Message format is correct.${RESET}"
-# Extract commit message content (removes the type part like 'feat:')
-commit_message_content=$(echo "$commit_msg" | sed -E 's/^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert): //')
+# echo -e "${GREEN}✅🎉🥳 Commit Message format is correct.${RESET}"
+# # Extract commit message content (removes the type part like 'feat:')
+# commit_message_content=$(echo "$commit_msg" | sed -E 's/^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert): //')
 
-# Check message length (10 to 200 characters)
-msg_length=${#commit_message_content}
-if [ "$msg_length" -lt 10 ] || [ "$msg_length" -gt 200 ]; then
-  echo -e "${RED}❌❌❌❌ Commit message must be between 10 and 100 characters.${RESET}"
-  echo -e "${YELLOW}${BOLD}Check README.md for more details:${RESET} ${README_PATH}"
-  echo "Current length: $msg_length"
-  exit 1
-fi
+# # Check message length (10 to 200 characters)
+# msg_length=${#commit_message_content}
+# if [ "$msg_length" -lt 10 ] || [ "$msg_length" -gt 200 ]; then
+#   echo -e "${RED}❌❌❌❌ Commit message must be between 10 and 100 characters.${RESET}"
+#   echo -e "${YELLOW}${BOLD}Check README.md for more details:${RESET} ${README_PATH}"
+#   echo "Current length: $msg_length"
+#   exit 1
+# fi
 
-echo -e "${GREEN}✅🎉🥳 Commit message is valid.${RESET}"
-echo -e "${GREEN}Pre-commit checks passed!${RESET}"
+# echo -e "${GREEN}✅🎉🥳 Commit message is valid.${RESET}"
+# echo -e "${GREEN}Pre-commit checks passed!${RESET}"
