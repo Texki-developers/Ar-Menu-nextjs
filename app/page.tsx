@@ -41,9 +41,7 @@ export default function Home() {
     }
   }, [category]);
 
-  useEffect(() => {
-    
-  }, [products]);
+  useEffect(() => {}, [products]);
 
   return (
     <div className="flex flex-col gap-8">

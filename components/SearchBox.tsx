@@ -1,5 +1,12 @@
 'use client';
-import React, { useState, useEffect, useCallback, useRef, Dispatch, SetStateAction } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import { MaterialSymbolsSearchRounded } from './Icons';
 import { searchProducts } from '@/app/services/productService';
 import { ProductType } from '@/app/types/product.types';
@@ -13,8 +20,8 @@ export default function Search({ setProducts }: SearchProps) {
   const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
   const debounce = useCallback(
-    (func: (...args: any[]) => void, delay: number) => {
-      return (...args: any[]) => {
+    <T extends (...args: never[]) => void>(func: T, delay: number) => {
+      return (...args: Parameters<T>) => {
         if (debounceTimer.current) clearTimeout(debounceTimer.current);
         debounceTimer.current = setTimeout(() => func(...args), delay);
       };

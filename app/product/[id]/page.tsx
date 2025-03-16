@@ -56,7 +56,7 @@ export default function Product() {
         <div className="flex w-full flex-col gap-[1rem] overflow-x-auto">
           <h2 className="text-primary">Recommended Sides</h2>
           {data?.recommended_sides?.length ? (
-            <RecommendedSwiper items={data.recommended_sides} />
+            <RecommendedSwiper items={data?.recommended_sides || []} />
           ) : (
             <p className="text-gray-500">No recommended sides available.</p>
           )}

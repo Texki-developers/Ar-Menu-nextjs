@@ -20,7 +20,7 @@ export type ProductType = {
   speciality: string;
   food_type: string;
   priority?: number;
-  recommended_sides: string[];
+  recommended_sides: ProductType[];
 };
 
 export type ProductCategoryResponse = {
