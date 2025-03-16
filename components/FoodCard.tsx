@@ -55,25 +55,26 @@ export default function FoodCard({ items }: { items: ProductType }) {
       </div>
 
       <div className="relative aspect-square w-[10rem] rounded-[16px]">
-        <div className="absolute top-[4px] left-[4px] z-100">
-          <SpecialityTag
-            tag="Chef Special"
-            icon={<HugeiconsChefHat color="#80ed99" />}
-          />
-        </div>
-        <button className="btn-primary text-description absolute right-0 bottom-0 z-100 flex transform-[translate(5px,5px)] gap-[0.5rem] rounded-full font-[600] text-white">
-          <MageBox3dDownload className="text-[1rem]" />
-          <span>View in Table</span>
-        </button>
-        {/* <Image
-          src={`http://localhost:8001/files/` + items?.image}
-          className="rounded-[16px]"
-          fill
-          alt="food-cafe"
-        /> */}
-
+        {items?.speciality && (
+          <div className="absolute top-[4px] left-[4px] z-100">
+            <SpecialityTag
+              tag="Chef Special"
+              icon={<HugeiconsChefHat color="#80ed99" />}
+            />
+          </div>
+        )}
         <ModelViewer
-          src={`${IMAGE_URL}${items?.three_usdz}`}
+          label={items?.name}
+          ar-scale={'fixed'}
+          poster={`https://menu.hackphiles.in/files/${items?.image}`}
+          loading={'lazy'}
+          auto-rotate
+          // skybox-image="/assets/aft_lounge_1k.exr"
+          camera-controls
+          touch-action="pan-y="
+          ios-src={`https://menu.hackphiles.in/files/${items?.three_usdz}`}
+          ar
+          src={`https://menu.hackphiles.in/files/${items?.three_glb}`}
           alt={items?.name}
         />
       </div>

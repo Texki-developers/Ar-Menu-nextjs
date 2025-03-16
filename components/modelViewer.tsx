@@ -1,7 +1,8 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { MageBox3dDownload } from './Icons';
 
 interface ModelViewerProps {
   src: string;
@@ -15,30 +16,27 @@ function ModelViewerComponent({ src, alt, ...props }: ModelViewerProps) {
     import('@google/model-viewer');
   }, []);
 
+
   return (
-    <div>
+    <div className="!max-w-[300px]">
       {/* @ts-expect-error - Suppress any remaining TypeScript errors */}
-      <model-viewer src={src} alt={alt || '3D model'} {...props}>
+      <model-viewer
+        style={{
+          width: '160px',
+          backgroundColor: '#dddddd6f',
+          borderRadius: '10px',
+          height: '160px',
+        }}
+        src={src}
+        alt={alt || '3D model'}
+        {...props}
+      >
         <button
           slot="ar-button"
-          style={{
-            backgroundColor: 'white',
-            borderRadius: '4px',
-            border: 'none',
-            position: 'absolute',
-            bottom: '16px',
-            right: '16px',
-          }}
+          className="btn-primary text-description absolute right-1 bottom-1 z-100 flex gap-[0.5rem] rounded-full font-[600] text-white"
         >
-          👀 View in AR
-        </button>
-        <button
-          className="hotspot"
-          slot="hotspot-hand"
-          data-position="0 10 14"
-          data-normal="1 0 0"
-        >
-          <div className="annotation">This is the pancake</div>
+          <MageBox3dDownload className="text-[1rem]" />
+          <span>View in Table</span>
         </button>
         {/* @ts-expect-error - Suppress any remaining TypeScript errors */}
       </model-viewer>
