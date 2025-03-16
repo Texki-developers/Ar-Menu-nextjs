@@ -41,6 +41,10 @@ export default function Home() {
     }
   }, [category]);
 
+  useEffect(() => {
+    
+  }, [products]);
+
   return (
     <div className="flex flex-col gap-8">
       {/* Banner Section */}
@@ -68,7 +72,7 @@ export default function Home() {
 
       {/* Search Box */}
       <div className="w-full px-4">
-        <SearchBox />
+        <SearchBox setProducts={setProducts} />
       </div>
 
       {/* Categories Section */}

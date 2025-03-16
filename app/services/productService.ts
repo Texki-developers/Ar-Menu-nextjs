@@ -10,3 +10,8 @@ export const getProductsById = async (id: string) => {
   const response = await api.get(`product/items/${id}`);
   return response.data;
 };
+
+export const searchProducts = async (name: string) => {
+  const response = await api.get(`product/items/search?name=${name}`);
+  return response.data;
+};
