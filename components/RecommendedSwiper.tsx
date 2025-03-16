@@ -5,8 +5,9 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import { FreeMode } from 'swiper/modules';
 import SideFoodCard from './SideFoodCard';
+import { ProductType } from '@/app/types/product.types';
 
-export default function RecommendedSwiper() {
+export default function RecommendedSwiper({ items }: { items: ProductType[] }) {
   return (
     <div className="w-full">
       <Swiper
@@ -16,11 +17,12 @@ export default function RecommendedSwiper() {
         modules={[FreeMode]}
         className="w-full"
       >
-        {Array.from({ length: 15 }).map((_, i) => (
-          <SwiperSlide key={i} className="w-auto">
-            <SideFoodCard />
-          </SwiperSlide>
-        ))}
+        {items &&
+          items.map((sides) => (
+            <SwiperSlide key={sides?._id} className="w-auto">
+              <SideFoodCard items={sides} />
+            </SwiperSlide>
+          ))}
       </Swiper>
     </div>
   );
