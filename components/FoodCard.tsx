@@ -2,10 +2,10 @@
 import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 import SpecialityTag from './atoms/SpecialityTag';
-import { HugeiconsChefHat, MageBox3dDownload } from './Icons';
+import { HugeiconsChefHat } from './Icons';
 import ModelViewer from './modelViewer';
 import { ProductType } from '@/app/types/product.types';
-import { IMAGE_URL } from '@/app/lib/axios';
+// import { IMAGE_URL } from '@/app/lib/axios';
 
 export default function FoodCard({ items }: { items: ProductType }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -69,7 +69,7 @@ export default function FoodCard({ items }: { items: ProductType }) {
           poster={`https://menu.hackphiles.in/files/${items?.image}`}
           loading={'lazy'}
           auto-rotate
-          // skybox-image="/assets/aft_lounge_1k.exrcomm"
+          // skybox-image="/assets/aft_lounge_1k.exr"
           camera-controls
           touch-action="pan-y="
           ios-src={`https://menu.hackphiles.in/files/${items?.three_usdz}`}

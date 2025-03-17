@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { MageBox3dDownload } from './Icons';
 
 interface ModelViewerProps {
@@ -15,7 +15,6 @@ function ModelViewerComponent({ src, alt, ...props }: ModelViewerProps) {
   useEffect(() => {
     import('@google/model-viewer');
   }, []);
-
 
   return (
     <div className="!max-w-[300px]">
