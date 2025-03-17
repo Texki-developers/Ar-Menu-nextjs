@@ -69,7 +69,7 @@ export default function FoodCard({ items }: { items: ProductType }) {
           poster={`https://menu.hackphiles.in/files/${items?.image}`}
           loading={'lazy'}
           auto-rotate
-          // skybox-image="/assets/aft_lounge_1k.exr"
+          // skybox-image="/assets/aft_lounge_1k.exrcomm"
           camera-controls
           touch-action="pan-y="
           ios-src={`https://menu.hackphiles.in/files/${items?.three_usdz}`}
