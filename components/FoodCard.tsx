@@ -31,6 +31,7 @@ export default function FoodCard({ items }: { items: ProductType }) {
       <Link
         href={`/product/${items?._id}`}
         className="flex flex-col gap-[0.5rem]"
+        prefetch
       >
         <div className="flex items-center gap-[10px]">
           <div className="relative aspect-square h-[12px] w-[12px]">
