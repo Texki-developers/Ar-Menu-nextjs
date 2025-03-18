@@ -7,7 +7,8 @@ import { MageBox3dDownload } from './Icons';
 interface ModelViewerProps {
   src: string;
   alt?: string;
-  [key: string]: any; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
 function ModelViewerComponent({ src, alt, ...props }: ModelViewerProps) {
@@ -15,7 +16,7 @@ function ModelViewerComponent({ src, alt, ...props }: ModelViewerProps) {
 
   useEffect(() => {
     import('@google/model-viewer');
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const navigatorAny = navigator as any;
 
     if (
@@ -52,7 +53,7 @@ function ModelViewerComponent({ src, alt, ...props }: ModelViewerProps) {
         </button>
 
         {arSupported === false && (
-          <p className="p-2 mt-[30%] text-sm text-red-500 bg-white">
+          <p className="mt-[30%] bg-white p-2 text-sm text-red-500">
             AR not supported on this device
           </p>
         )}
