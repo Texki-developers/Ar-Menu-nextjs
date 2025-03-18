@@ -7,6 +7,7 @@ import { ProductType } from '@/app/types/product.types';
 import Link from 'next/link';
 import { foodTypeImages, isValidFoodType } from '@/app/utils';
 import Image from 'next/image';
+import FoodTypeImage from './FoodType';
 
 export default function FoodCard({ items }: { items: ProductType }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -20,11 +21,7 @@ export default function FoodCard({ items }: { items: ProductType }) {
 
   const modelRef = useRef(null);
 
-  const FoodTypeImage: React.FC<{ foodType?: string }> = ({ foodType }) => {
-    if (!foodType || !isValidFoodType(foodType)) return null;
-
-    return <Image src={foodTypeImages[foodType]} alt={foodType} fill />;
-  };
+ 
 
   return (
     <div

@@ -2,6 +2,7 @@
 
 import { getProductsById } from '@/app/services/productService';
 import { ProductType } from '@/app/types/product.types';
+import FoodTypeImage from '@/components/FoodType';
 import { MageBox3dDownload } from '@/components/Icons';
 import ProductImageSwiper from '@/components/ProductImageSwiper';
 import RecommendedSwiper from '@/components/RecommendedSwiper';
@@ -34,7 +35,13 @@ export default function Product() {
               <SpecialityTag variant="dark" tag={data?.speciality} />
             )}
           </div>
+          <div className='flex gap-2 items-center'>
+          <div className="relative aspect-square h-[12px] w-[12px]">
+            <FoodTypeImage foodType={data?.food_type} />
+          </div>
           <h2 className="text-large">{data?.name || 'Product Name'}</h2>
+          </div>
+     
         </div>
 
         <p className="text-description">
@@ -67,13 +74,13 @@ export default function Product() {
               </span>
             )}
           </p>
-          <button
+          {/* <button
             slot="ar-button"
             className="btn-primary text-description flex items-center gap-[0.5rem] rounded-full font-[600] text-white"
           >
             <MageBox3dDownload className="text-[1rem]" />
             <span>View in Table</span>
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
