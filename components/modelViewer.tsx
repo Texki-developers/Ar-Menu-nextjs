@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { MageBox3dDownload } from './Icons';
 
 interface ModelViewerProps {
@@ -12,25 +12,25 @@ interface ModelViewerProps {
 }
 
 function ModelViewerComponent({ src, alt, ...props }: ModelViewerProps) {
-  const [arSupported, setArSupported] = useState<boolean | null>(null);
+  // const [arSupported, setArSupported] = useState<boolean | null>(null);
 
   useEffect(() => {
     import('@google/model-viewer');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const navigatorAny = navigator as any;
+    // const navigatorAny = navigator as any;
 
-    if (
-      navigatorAny.xr &&
-      typeof navigatorAny.xr.isSessionSupported === 'function'
-    ) {
-      navigatorAny.xr
-        .isSessionSupported('immersive-ar')
-        .then((supported: boolean) => {
-          setArSupported(supported);
-        });
-    } else {
-      setArSupported(false);
-    }
+    // if (
+    //   navigatorAny.xr &&
+    //   typeof navigatorAny.xr.isSessionSupported === 'function'
+    // ) {
+    //   navigatorAny.xr
+    //     .isSessionSupported('immersive-ar')
+    //     .then((supported: boolean) => {
+    //       setArSupported(supported);
+    //     });
+    // } else {
+    //   setArSupported(false);
+    // }
   }, []);
 
   return (
@@ -47,16 +47,19 @@ function ModelViewerComponent({ src, alt, ...props }: ModelViewerProps) {
         alt={alt || '3D model'}
         {...props}
       >
-        <button className="btn-primary text-description absolute right-1 bottom-1 z-100 flex gap-[0.5rem] rounded-full font-[600] text-white">
+        <button
+          slot="ar-button"
+          className="btn-primary text-description absolute right-1 bottom-1 z-100 flex gap-[0.5rem] rounded-full font-[600] text-white"
+        >
           <MageBox3dDownload className="text-[1rem]" />
           <span>View in Table</span>
         </button>
 
-        {arSupported === false && (
+        {/* {arSupported === false && (
           <p className="mt-[30%] bg-white p-2 text-sm text-red-500">
             AR not supported on this device
           </p>
-        )}
+        )} */}
         {/* @ts-expect-error - Suppress any remaining TypeScript errors */}
       </model-viewer>
     </div>

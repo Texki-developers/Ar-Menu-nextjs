@@ -67,7 +67,10 @@ export default function Product() {
               </span>
             )}
           </p>
-          <button className="btn-primary text-description flex items-center gap-[0.5rem] rounded-full font-[600] text-white">
+          <button
+            slot="ar-button"
+            className="btn-primary text-description flex items-center gap-[0.5rem] rounded-full font-[600] text-white"
+          >
             <MageBox3dDownload className="text-[1rem]" />
             <span>View in Table</span>
           </button>
