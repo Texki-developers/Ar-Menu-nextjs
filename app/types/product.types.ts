@@ -41,7 +41,7 @@ export type FoodType =
   | 'FRUITARIAN'
   | 'JAIN_VEGAN'
   | 'JAIN_VEGETARIAN'
-  | 'NON_VEG'
+  | 'NON_VEGETARIAN'
   | 'PESCATARIAN'
   | 'POLLOTARIAN'
   | 'VEGAN'

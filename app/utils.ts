@@ -26,7 +26,7 @@ export const foodTypeImages: Record<FoodType, string> = {
   NON_VEG: '/assets/Veg/non-veg.png',
   PESCATARIAN: '/assets/Veg/Pescatarian.png',
   POLLOTARIAN: '/assets/Veg/Pollotarian.png',
-  VEGAN: '/assets/Veg/VEgan.png',
+  NON_VEGETARIAN: '/assets/Veg/VEgan.png',
   VEGETARIAN: '/assets/Veg/Vegetarian.png',
 };
 
