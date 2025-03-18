@@ -5,8 +5,6 @@ import SpecialityTag from './atoms/SpecialityTag';
 import ModelViewer from './modelViewer';
 import { ProductType } from '@/app/types/product.types';
 import Link from 'next/link';
-import { foodTypeImages, isValidFoodType } from '@/app/utils';
-import Image from 'next/image';
 import FoodTypeImage from './FoodType';
 
 export default function FoodCard({ items }: { items: ProductType }) {
@@ -20,8 +18,6 @@ export default function FoodCard({ items }: { items: ProductType }) {
       : items?.desc.slice(0, maxChars) + '...';
 
   const modelRef = useRef(null);
-
- 
 
   return (
     <div

@@ -3,7 +3,6 @@
 import { getProductsById } from '@/app/services/productService';
 import { ProductType } from '@/app/types/product.types';
 import FoodTypeImage from '@/components/FoodType';
-import { MageBox3dDownload } from '@/components/Icons';
 import ProductImageSwiper from '@/components/ProductImageSwiper';
 import RecommendedSwiper from '@/components/RecommendedSwiper';
 import SpecialityTag from '@/components/atoms/SpecialityTag';
@@ -35,13 +34,12 @@ export default function Product() {
               <SpecialityTag variant="dark" tag={data?.speciality} />
             )}
           </div>
-          <div className='flex gap-2 items-center'>
-          <div className="relative aspect-square h-[12px] w-[12px]">
-            <FoodTypeImage foodType={data?.food_type} />
+          <div className="flex items-center gap-2">
+            <div className="relative aspect-square h-[12px] w-[12px]">
+              <FoodTypeImage foodType={data?.food_type} />
+            </div>
+            <h2 className="text-large">{data?.name || 'Product Name'}</h2>
           </div>
-          <h2 className="text-large">{data?.name || 'Product Name'}</h2>
-          </div>
-     
         </div>
 
         <p className="text-description">
