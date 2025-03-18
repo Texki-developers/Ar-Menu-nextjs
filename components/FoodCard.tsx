@@ -2,7 +2,6 @@
 
 import React, { useRef, useState } from 'react';
 import SpecialityTag from './atoms/SpecialityTag';
-import { MageBox3dDownload } from './Icons';
 import ModelViewer from './modelViewer';
 import { ProductType } from '@/app/types/product.types';
 import Link from 'next/link';
@@ -20,12 +19,6 @@ export default function FoodCard({ items }: { items: ProductType }) {
       : items?.desc.slice(0, maxChars) + '...';
 
   const modelRef = useRef(null);
-
-  const handleOpenAR = () => {
-    if (modelRef.current) {
-      // modelRef.current?.activateAR();
-    }
-  };
 
   const FoodTypeImage: React.FC<{ foodType?: string }> = ({ foodType }) => {
     if (!foodType || !isValidFoodType(foodType)) return null;
