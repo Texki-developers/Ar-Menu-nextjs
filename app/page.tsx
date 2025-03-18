@@ -1,49 +1,103 @@
 'use client';
+
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import SearchBox from '@/components/SearchBox';
 import FoodCard from '@/components/FoodCard';
 import CategoriesSwiper from '@/components/CategoriesSwiper';
 import { getProductsNcategories } from './services/productService';
-import { useEffect, useState } from 'react';
-import { getCategoryNames, getItemsbyCategory } from './utils';
-import { ProductCategoryResponse, ProductType } from './types/product.types';
+import {
+  CategorisedType,
+  ProductCategoryResponse,
+  ProductType,
+} from './types/product.types';
+
+// Utility function to render product cards
+const renderProductCards = (products: ProductType[]) => {
+  if (!products || products.length === 0) {
+    return <p className="text-center text-gray-500">No products available.</p>;
+  }
+  return products.map((item) => <FoodCard key={item._id} items={item} />);
+};
+
+// Utility function to render category sections
+const renderCategorySection = (category: CategorisedType) => {
+  if (!category || !category.products || category.products.length === 0) {
+    return null;
+  }
+  return (
+    <div key={category.category._id} className="mb-4">
+      <h2 className="text-primary pb-2">{category.category.name}</h2>
+      {category.products.map((item) => (
+        <FoodCard key={item._id} items={item} />
+      ))}
+    </div>
+  );
+};
 
 export default function Home() {
-  const [products, setProducts] = useState<ProductType[] | []>([]);
+  const [products, setProducts] = useState<ProductCategoryResponse>({
+    recommendedProducts: [],
+    categorizedProducts: [],
+  });
   const [categories, setCategories] = useState<string[]>([]);
-  const [category, setCategory] = useState<string | null>(null);
+  const [categoriesSelection, setCategoriesSelection] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [query, setQuery] = useState<string>('');
+  const [searchedProducts, setSearchedProducts] = useState<ProductType[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<CategorisedType[]>(
+    []
+  );
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
-      const data = await getProductsNcategories();
-      const categoryNames = getCategoryNames(data) || [];
-
-      if (categoryNames.length > 0) {
-        setCategories(categoryNames);
-        setCategory((prev) => prev || categoryNames[0]);
+      try {
+        const data = await getProductsNcategories();
+        setProducts(data);
+        setCategories(
+          data?.categorizedProducts?.map(
+            (cat: CategorisedType) => cat.category.name
+          ) || []
+        );
+      } catch (error) {
+        console.error('Error fetching products:', error);
       }
-
       setLoading(false);
     };
 
     fetchProducts();
   }, []);
 
+  // Handle category selection
   useEffect(() => {
-    if (category && query.length === 0) {
-      const fetchCategoryItems = async () => {
-        const data: ProductCategoryResponse = await getProductsNcategories();
-        setProducts(getItemsbyCategory(data, category));
-      };
-      fetchCategoryItems();
+    if (categoriesSelection) {
+      setFilteredProducts(
+        products.categorizedProducts?.filter(
+          (cat) => cat.category?.name === categoriesSelection
+        ) || []
+      );
+    } else {
+      setFilteredProducts([]);
     }
-  }, [category, query]);
+  }, [categoriesSelection, products]);
 
-  useEffect(() => {}, [products]);
-
+  // Handle search results
+  useEffect(() => {
+    if (query) {
+      const allProducts = [
+        ...(products.recommendedProducts || []),
+        ...(products.categorizedProducts?.flatMap((cat) => cat.products) || []),
+      ];
+      const results = allProducts.filter((item) =>
+        item.name.toLowerCase().includes(query.toLowerCase())
+      );
+      setSearchedProducts(results);
+    } else {
+      setSearchedProducts([]);
+    }
+  }, [query, products]);
+  console.log(filteredProducts, 'filtere peroduct');
   return (
     <div className="flex flex-col gap-8">
       {/* Banner Section */}
@@ -72,30 +126,61 @@ export default function Home() {
       {/* Search Box */}
       <div className="w-full px-4">
         <SearchBox
-          setProducts={setProducts}
+          setProducts={setSearchedProducts}
           query={query}
           setQuery={setQuery}
         />
       </div>
 
       {/* Categories Section */}
-      <div className="categories-wrapper flex flex-col">
-        <h2 className="text-primary px-4 pb-2">Categories</h2>
-        {categories.length > 0 && (
-          <CategoriesSwiper categories={categories} setCategory={setCategory} />
-        )}
-      </div>
+      {categories.length > 0 && (
+        <div className="categories-wrapper flex flex-col">
+          <h2 className="text-primary px-4 pb-2">Categories</h2>
+          <CategoriesSwiper
+            categories={categories}
+            setCategoriesSelection={setCategoriesSelection}
+          />
+        </div>
+      )}
 
-      {/* Product List */}
-      <div className="flex w-full flex-col px-4">
-        {loading ? (
-          <p className="text-center text-gray-500">Loading products...</p>
-        ) : products.length > 0 ? (
-          products.map((item) => <FoodCard key={item?._id} items={item} />)
-        ) : (
-          <p className="text-center text-gray-500">No products available.</p>
-        )}
-      </div>
+      {/* Display Search Results */}
+      {query && searchedProducts.length > 0 && (
+        <div className="flex w-full flex-col px-4">
+          <h2 className="text-primary pb-2">Search Results</h2>
+          {renderProductCards(searchedProducts)}
+        </div>
+      )}
+
+      {/* Conditional Rendering for Products */}
+      {!query && !categoriesSelection && searchedProducts.length === 0 && (
+        <>
+          {/* Recommended Products */}
+          <div className="flex w-full flex-col px-4">
+            <h2 className="text-primary pb-2">Recommended</h2>
+            {loading ? (
+              <p className="text-center text-gray-500">Loading products...</p>
+            ) : (
+              renderProductCards(products.recommendedProducts)
+            )}
+          </div>
+
+          {/* All Categorized Products */}
+          {products?.categorizedProducts?.length > 0 && (
+            <div className="flex w-full flex-col px-4">
+              {products.categorizedProducts.map((category) =>
+                renderCategorySection(category)
+              )}
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Filtered Products by Category */}
+      {categoriesSelection && !query && filteredProducts.length > 0 && (
+        <div className="flex w-full flex-col px-4">
+          {filteredProducts.map((category) => renderCategorySection(category))}
+        </div>
+      )}
     </div>
   );
 }

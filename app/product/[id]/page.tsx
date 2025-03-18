@@ -39,7 +39,8 @@ export default function Product() {
             <div className="relative aspect-square h-[12px] w-[12px]">
               <FoodTypeImage foodType={data?.food_type} />
             </div>
-            <h2 className="text-large">{data?.name || 'Product Name'}</h2>api/v1/product/items
+            <h2 className="text-large">{data?.name || 'Product Name'}</h2>
+            api/v1/product/items
           </div>
         </div>
 

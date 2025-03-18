@@ -3,7 +3,7 @@ import { EFoodSpecialty } from '@/components/atoms/SpecialityTag';
 export type CategoryType = {
   _id: string;
   name: string;
-  priority: number;
+  priority?: number;
 };
 
 export type ProductType = {
@@ -25,14 +25,14 @@ export type ProductType = {
   recommended_sides: ProductType[];
 };
 
+export type CategorisedType = {
+  category: CategoryType;
+  products: ProductType[];
+};
+
 export type ProductCategoryResponse = {
-  categories: {
-    [key: string]: {
-      category: CategoryType;
-      items: ProductType[];
-    };
-  };
-  is_recommended: Record<string, unknown>;
+  recommendedProducts: ProductType[];
+  categorizedProducts: CategorisedType[];
 };
 
 export type FoodType =

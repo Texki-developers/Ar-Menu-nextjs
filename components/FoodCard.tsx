@@ -18,7 +18,6 @@ export default function FoodCard({ items }: { items: ProductType }) {
       : items?.desc.slice(0, maxChars) + '...';
 
   const modelRef = useRef(null);
-
   return (
     <div
       ref={containerRef}
