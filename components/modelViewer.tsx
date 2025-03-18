@@ -52,7 +52,7 @@ function ModelViewerComponent({ src, alt, ...props }: ModelViewerProps) {
         </button>
 
         {arSupported === false && (
-          <p className="pl-2 mt-2 text-sm text-red-500">
+          <p className="p-2 mt-[30%] text-sm text-red-500 bg-white">
             AR not supported on this device
           </p>
         )}
