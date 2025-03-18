@@ -1,3 +1,5 @@
+import { EFoodSpecialty } from '@/components/atoms/SpecialityTag';
+
 export type CategoryType = {
   _id: string;
   name: string;
@@ -17,7 +19,7 @@ export type ProductType = {
   non_veg: boolean;
   recipes: string[];
   is_recommended: boolean;
-  speciality: string;
+  speciality: EFoodSpecialty;
   food_type: string;
   priority?: number;
   recommended_sides: ProductType[];
@@ -32,3 +34,15 @@ export type ProductCategoryResponse = {
   };
   is_recommended: Record<string, unknown>;
 };
+
+export type FoodType =
+  | 'EGGETARIAN'
+  | 'FLEXITARIAN'
+  | 'FRUITARIAN'
+  | 'JAIN_VEGAN'
+  | 'JAIN_VEGETARIAN'
+  | 'NON_VEG'
+  | 'PESCATARIAN'
+  | 'POLLOTARIAN'
+  | 'VEGAN'
+  | 'VEGETARIAN';

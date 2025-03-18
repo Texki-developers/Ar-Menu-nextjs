@@ -1,46 +1,63 @@
 'use client';
-import Image from 'next/image';
+
 import React, { useRef, useState } from 'react';
 import SpecialityTag from './atoms/SpecialityTag';
-import { HugeiconsChefHat } from './Icons';
+import { MageBox3dDownload } from './Icons';
 import ModelViewer from './modelViewer';
 import { ProductType } from '@/app/types/product.types';
-// import { IMAGE_URL } from '@/app/lib/axios';
+import Link from 'next/link';
+import { foodTypeImages, isValidFoodType } from '@/app/utils';
+import Image from 'next/image';
 
 export default function FoodCard({ items }: { items: ProductType }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const maxChars = 80;
-
   const [isExpanded, setExpanded] = useState<boolean>(false);
-
   const shouldTruncate = items?.desc.length > maxChars;
   const displayText =
     isExpanded || !shouldTruncate
       ? items?.desc
       : items?.desc.slice(0, maxChars) + '...';
 
+  const modelRef = useRef(null);
+
+  const handleOpenAR = () => {
+    if (modelRef.current) {
+      // modelRef.current?.activateAR();
+    }
+  };
+
+  const FoodTypeImage: React.FC<{ foodType?: string }> = ({ foodType }) => {
+    if (!foodType || !isValidFoodType(foodType)) return null;
+
+    return <Image src={foodTypeImages[foodType]} alt={foodType} fill />;
+  };
+
   return (
     <div
       ref={containerRef}
-      className="grid h-max w-[100%] grid-cols-[auto_10rem] gap-[1rem] border-b-[1px] border-b-[#c2c2d2] py-[1rem]"
+      className="grid h-max w-[100%] cursor-pointer grid-cols-[auto_10rem] gap-[1rem] border-b-[1px] border-b-[#c2c2d2] py-[1rem]"
     >
-      <div className="flex flex-col gap-[0.5rem]">
+      <Link
+        href={`/product/${items?._id}`}
+        className="flex flex-col gap-[0.5rem]"
+      >
         <div className="flex items-center gap-[10px]">
           <div className="relative aspect-square h-[12px] w-[12px]">
-            <Image src="/assets/veg.png" alt="veg food" fill />
+            <FoodTypeImage foodType={items?.food_type} />
           </div>
           <p className="text-body font-[600_!important]">{items?.name}</p>
         </div>
 
         <div>
-          <p className={`text-description leading-tight text-gray-700`}>
+          <p className="text-description leading-tight text-gray-700">
             {displayText}
-            {!isExpanded && (
+            {!isExpanded && shouldTruncate && (
               <button
                 onClick={() => setExpanded(true)}
                 className="inline bg-white pl-1 text-blue-500"
               >
-                {shouldTruncate && 'Show More'}
+                Show More
               </button>
             )}
           </p>
@@ -52,26 +69,31 @@ export default function FoodCard({ items }: { items: ProductType }) {
             AED {items.actual_price}
           </span>
         </p>
-      </div>
+      </Link>
 
       <div className="relative aspect-square w-[10rem] rounded-[16px]">
         {items?.speciality && (
           <div className="absolute top-[4px] left-[4px] z-100">
-            <SpecialityTag
-              tag="Chef Special"
-              icon={<HugeiconsChefHat color="#80ed99" />}
-            />
+            <SpecialityTag tag={items?.speciality} />
           </div>
         )}
+        <button
+          onClick={handleOpenAR}
+          className="btn-primary text-description absolute right-0 bottom-0 z-100 flex transform-[translate(5px,5px)] gap-[0.5rem] rounded-full font-[600] text-white"
+        >
+          <MageBox3dDownload className="text-[1rem]" />
+          <span>View in Table</span>
+        </button>
         <ModelViewer
+          ref={modelRef}
           label={items?.name}
-          ar-scale={'fixed'}
+          ar-scale="fixed"
           poster={`https://menu.hackphiles.in/files/${items?.image}`}
-          loading={'lazy'}
+          loading="lazy"
           auto-rotate
-          // skybox-image="/assets/aft_lounge_1k.exr"
+          key={items?._id}
           camera-controls
-          touch-action="pan-y="
+          touch-action="pan-y"
           ios-src={`https://menu.hackphiles.in/files/${items?.three_usdz}`}
           ar
           src={`https://menu.hackphiles.in/files/${items?.three_glb}`}
