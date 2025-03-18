@@ -77,6 +77,13 @@ export default function FoodCard({ items }: { items: ProductType }) {
             <SpecialityTag tag={items?.speciality} />
           </div>
         )}
+        <button
+          onClick={handleOpenAR}
+          className="btn-primary text-description absolute right-0 bottom-0 z-100 flex transform-[translate(5px,5px)] gap-[0.5rem] rounded-full font-[600] text-white"
+        >
+          <MageBox3dDownload className="text-[1rem]" />
+          <span>View in Table</span>
+        </button>
         <ModelViewer
           ref={modelRef}
           label={items?.name}
