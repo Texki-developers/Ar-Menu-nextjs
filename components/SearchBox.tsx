@@ -1,6 +1,5 @@
 'use client';
 import React, {
-  useState,
   useEffect,
   useCallback,
   useRef,
@@ -13,10 +12,11 @@ import { ProductType } from '@/app/types/product.types';
 
 interface SearchProps {
   setProducts: Dispatch<SetStateAction<ProductType[]>>;
+  query: string;
+  setQuery: Dispatch<SetStateAction<string>>;
 }
 
-export default function Search({ setProducts }: SearchProps) {
-  const [query, setQuery] = useState<string>('');
+export default function Search({ setProducts, query, setQuery }: SearchProps) {
   const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
   const debounce = useCallback(

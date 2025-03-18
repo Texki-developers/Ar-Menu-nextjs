@@ -13,6 +13,7 @@ export default function Home() {
   const [categories, setCategories] = useState<string[]>([]);
   const [category, setCategory] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [query, setQuery] = useState<string>('');
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -32,14 +33,14 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (category) {
+    if (category && query.length === 0) {
       const fetchCategoryItems = async () => {
         const data: ProductCategoryResponse = await getProductsNcategories();
         setProducts(getItemsbyCategory(data, category));
       };
       fetchCategoryItems();
     }
-  }, [category]);
+  }, [category, query]);
 
   useEffect(() => {}, [products]);
 
@@ -70,7 +71,11 @@ export default function Home() {
 
       {/* Search Box */}
       <div className="w-full px-4">
-        <SearchBox setProducts={setProducts} />
+        <SearchBox
+          setProducts={setProducts}
+          query={query}
+          setQuery={setQuery}
+        />
       </div>
 
       {/* Categories Section */}
@@ -86,11 +91,7 @@ export default function Home() {
         {loading ? (
           <p className="text-center text-gray-500">Loading products...</p>
         ) : products.length > 0 ? (
-          products.map((item) => (
-            // <Link href={`/product/${item?._id}`}>
-            <FoodCard key={item?._id} items={item} />
-            //  </Link>
-          ))
+          products.map((item) => <FoodCard key={item?._id} items={item} />)
         ) : (
           <p className="text-center text-gray-500">No products available.</p>
         )}

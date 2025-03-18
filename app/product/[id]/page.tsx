@@ -2,7 +2,7 @@
 
 import { getProductsById } from '@/app/services/productService';
 import { ProductType } from '@/app/types/product.types';
-import { HugeiconsChefHat, MageBox3dDownload } from '@/components/Icons';
+import { MageBox3dDownload } from '@/components/Icons';
 import ProductImageSwiper from '@/components/ProductImageSwiper';
 import RecommendedSwiper from '@/components/RecommendedSwiper';
 import SpecialityTag from '@/components/atoms/SpecialityTag';
@@ -31,11 +31,7 @@ export default function Product() {
         <div className="flex flex-col gap-[1rem] px-[1rem]">
           <div className="flex gap-[1rem]">
             {data?.speciality && (
-              <SpecialityTag
-                variant="dark"
-                tag="Chef Special"
-                icon={<HugeiconsChefHat color="#80ed99" />}
-              />
+              <SpecialityTag variant="dark" tag={data?.speciality} />
             )}
           </div>
           <h2 className="text-large">{data?.name || 'Product Name'}</h2>
