@@ -82,8 +82,8 @@ export default function SpecialityTag({
           : 'border-[rgb(146,118,111)] bg-[rgba(0,0,0,0.24)] text-white'
       } flex gap-[5px] rounded-[16px] border-[2px] p-[5px] backdrop-blur-md`}
     >
-      {specialtyIcons[tag] ?? null} {/* Dynamically render icon */}
-      <p className="text-small">{tag.replace('_', ' ')}</p>
+      {specialtyIcons[tag] ?? null}
+      <p className="text-small flex items-center">{tag.replace('_', ' ')}</p>
     </div>
   );
 }
