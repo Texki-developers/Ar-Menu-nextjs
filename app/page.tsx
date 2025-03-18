@@ -154,15 +154,16 @@ export default function Home() {
       {/* Conditional Rendering for Products */}
       {!query && !categoriesSelection && searchedProducts.length === 0 && (
         <>
-          {/* Recommended Products */}
-          <div className="flex w-full flex-col px-4">
-            <h2 className="text-primary pb-2">Recommended</h2>
-            {loading ? (
-              <p className="text-center text-gray-500">Loading products...</p>
-            ) : (
-              renderProductCards(products.recommendedProducts)
-            )}
-          </div>
+          {products.recommendedProducts.length > 0 && (
+            <div className="flex w-full flex-col px-4">
+              <h2 className="text-primary pb-2">Recommended</h2>
+              {loading ? (
+                <p className="text-center text-gray-500">Loading products...</p>
+              ) : (
+                renderProductCards(products.recommendedProducts)
+              )}
+            </div>
+          )}
 
           {/* All Categorized Products */}
           {products?.categorizedProducts?.length > 0 && (
