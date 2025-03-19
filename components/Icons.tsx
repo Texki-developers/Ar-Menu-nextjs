@@ -370,12 +370,13 @@ export function IconParkTwotoneChafingDishOne(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export const HighProteinIcon = () => (
+export const HighProteinIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width="24"
-    height="24"
+    width="16"
+    height="16"
     viewBox="0 0 24 24"
     fill="none"
+    {...props}
     xmlns="http://www.w3.org/2000/svg"
   >
     <path d="M9 19H15V21H9V19Z" fill="currentColor" />
@@ -383,12 +384,13 @@ export const HighProteinIcon = () => (
   </svg>
 );
 
-export const BitterIcon = () => (
+export const BitterIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width="24"
-    height="24"
+    width="16"
+    height="16"
     viewBox="0 0 24 24"
     fill="none"
+    {...props}
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -398,11 +400,12 @@ export const BitterIcon = () => (
   </svg>
 );
 
-export const StreetFoodIcon = () => (
+export const StreetFoodIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width="24"
-    height="24"
+    width="16"
+    height="16"
     viewBox="0 0 24 24"
+    {...props}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -413,12 +416,13 @@ export const StreetFoodIcon = () => (
   </svg>
 );
 
-export const LowCarbIcon = () => (
+export const LowCarbIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width="24"
-    height="24"
+    width="16"
+    height="16"
     viewBox="0 0 24 24"
     fill="none"
+    {...props}
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -428,11 +432,12 @@ export const LowCarbIcon = () => (
   </svg>
 );
 
-export const VeganFriendlyIcon = () => (
+export const VeganFriendlyIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width="24"
-    height="24"
+    width="16"
+    height="16"
     viewBox="0 0 24 24"
+    {...props}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -442,11 +447,12 @@ export const VeganFriendlyIcon = () => (
     />
   </svg>
 );
-export const KetoFriendlyIcon = () => (
+export const KetoFriendlyIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width="24"
-    height="24"
+    width="16"
+    height="16"
     viewBox="0 0 24 24"
+    {...props}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -457,12 +463,13 @@ export const KetoFriendlyIcon = () => (
   </svg>
 );
 
-export const SoftFoodIcon = () => (
+export const SoftFoodIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width="24"
-    height="24"
+    width="16"
+    height="16"
     viewBox="0 0 24 24"
     fill="none"
+    {...props}
     xmlns="http://www.w3.org/2000/svg"
   >
     <path

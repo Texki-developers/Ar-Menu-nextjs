@@ -9,7 +9,7 @@ export default function Tag({
 }) {
   return (
     <p
-      className={`text-description rounded-full p-[5px] px-[7px]`}
+      className={`text-description rounded-full p-[5px] px-[7px] capitalize`}
       style={{ background: color }}
     >
       {text}
