@@ -40,7 +40,6 @@ export default function Product() {
               <FoodTypeImage foodType={data?.food_type} />
             </div>
             <h2 className="text-large">{data?.name || 'Product Name'}</h2>
-            api/v1/product/items
           </div>
         </div>
 

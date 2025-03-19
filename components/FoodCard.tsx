@@ -66,7 +66,6 @@ export default function FoodCard({ items }: { items: ProductType }) {
         <ModelViewer
           ref={modelRef}
           label={items?.name}
-          ar-scale="fixed"
           poster={`https://menu.hackphiles.in/files/${items?.image}`}
           loading="lazy"
           auto-rotate
