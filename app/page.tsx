@@ -151,37 +151,35 @@ export default function Home() {
         </div>
       )}
 
-      {/* Conditional Rendering for Products */}
-      {!query && !categoriesSelection && searchedProducts.length === 0 && (
-        <>
-          {products.recommendedProducts.length > 0 && (
-            <div className="flex w-full flex-col px-4">
-              <h2 className="text-primary pb-2">Recommended</h2>
-              {loading ? (
-                <p className="text-center text-gray-500">Loading products...</p>
-              ) : (
-                renderProductCards(products.recommendedProducts)
-              )}
-            </div>
-          )}
-
-          {/* All Categorized Products */}
-          {products?.categorizedProducts?.length > 0 && (
-            <div className="flex w-full flex-col px-4">
-              {products.categorizedProducts.map((category) =>
-                renderCategorySection(category)
-              )}
-            </div>
-          )}
-        </>
-      )}
-
-      {/* Filtered Products by Category */}
       {categoriesSelection && !query && filteredProducts.length > 0 && (
         <div className="flex w-full flex-col px-4">
           {filteredProducts.map((category) => renderCategorySection(category))}
         </div>
       )}
+
+      <>
+        {products.recommendedProducts.length > 0 && (
+          <div className="flex w-full flex-col px-4">
+            <h2 className="text-primary pb-2">Recommended</h2>
+            {loading ? (
+              <p className="text-center text-gray-500">Loading products...</p>
+            ) : (
+              renderProductCards(products.recommendedProducts)
+            )}
+          </div>
+        )}
+
+        {/* All Categorized Products */}
+        {products?.categorizedProducts?.length > 0 && (
+          <div className="flex w-full flex-col px-4">
+            {products.categorizedProducts.map((category) =>
+              renderCategorySection(category)
+            )}
+          </div>
+        )}
+      </>
+
+      {/* Filtered Products by Category */}
     </div>
   );
 }
