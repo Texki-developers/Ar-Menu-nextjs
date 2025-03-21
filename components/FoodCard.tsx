@@ -71,6 +71,7 @@ export default function FoodCard({ items }: { items: ProductType }) {
           auto-rotate
           key={items?._id}
           camera-controls
+          ar-modes="scene-viewer quick-look"
           touch-action="pan-y"
           ios-src={`https://menu.hackphiles.in/files/${items?.three_usdz}`}
           ar
