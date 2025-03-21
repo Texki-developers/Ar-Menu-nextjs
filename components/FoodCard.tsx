@@ -1,16 +1,19 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SpecialityTag from './atoms/SpecialityTag';
 import ModelViewer from './modelViewer';
 import { ProductType } from '@/app/types/product.types';
 import Link from 'next/link';
 import FoodTypeImage from './FoodType';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 export default function FoodCard({ items }: { items: ProductType }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const maxChars = 80;
   const [isExpanded, setExpanded] = useState<boolean>(false);
+  const [showSkeleton, setShowSkeleton] = useState(true);
   const shouldTruncate = items?.desc.length > maxChars;
   const displayText =
     isExpanded || !shouldTruncate
@@ -18,6 +21,11 @@ export default function FoodCard({ items }: { items: ProductType }) {
       : items?.desc.slice(0, maxChars) + '...';
 
   const modelRef = useRef(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowSkeleton(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <div
       ref={containerRef}
@@ -40,7 +48,10 @@ export default function FoodCard({ items }: { items: ProductType }) {
             {displayText}
             {!isExpanded && shouldTruncate && (
               <button
-                onClick={() => setExpanded(true)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setExpanded(true);
+                }}
                 className="inline bg-white pl-1 text-blue-500"
               >
                 Show More
@@ -57,7 +68,14 @@ export default function FoodCard({ items }: { items: ProductType }) {
         </p>
       </Link>
 
-      <div className="relative aspect-square w-[10rem] rounded-[16px]">
+      {showSkeleton && (
+        <Skeleton width={'10rem'} height={'160px'} className="rounded-[16px]" />
+      )}
+
+      <div
+        style={{ opacity: showSkeleton ? '0' : 1 }}
+        className="relative aspect-square w-[10rem] rounded-[16px]"
+      >
         {items?.speciality && (
           <div className="absolute top-[4px] left-[4px] z-100">
             <SpecialityTag tag={items?.speciality} />
