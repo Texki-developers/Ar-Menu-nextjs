@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import SearchBox from '@/components/SearchBox';
 import FoodCard from '@/components/FoodCard';
 import CategoriesSwiper from '@/components/CategoriesSwiper';
@@ -48,6 +48,9 @@ export default function Home() {
   const [filteredProducts, setFilteredProducts] = useState<CategorisedType[]>(
     []
   );
+  // Refs for scrolling
+  const recommendedRef = useRef<HTMLDivElement>(null);
+  const filteredSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -69,18 +72,37 @@ export default function Home() {
     fetchProducts();
   }, []);
 
-  // Handle category selection
+
+   // Handle category selection and scroll to filtered section
   useEffect(() => {
-    if (categoriesSelection) {
-      setFilteredProducts(
-        products.categorizedProducts?.filter(
-          (cat) => cat.category?.name === categoriesSelection
-        ) || []
-      );
-    } else {
-      setFilteredProducts([]);
+  if (categoriesSelection) {
+    // Filter the selected category products
+    const filtered = products.categorizedProducts?.filter(
+      (cat) => cat.category?.name === categoriesSelection
+    ) || [];
+    setFilteredProducts(filtered);
+
+    // Scroll to the filtered categories section with an offset
+    if (filtered.length > 0 && filteredSectionRef.current) {
+      setTimeout(() => {
+        const stickyBar = document.querySelector('.sticky') as HTMLElement | null;
+        const stickyBarHeight = stickyBar ? stickyBar.offsetHeight : 80
+        const sectionRef = filteredSectionRef.current
+        if(sectionRef){
+          const sectionPosition = sectionRef.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: sectionPosition - stickyBarHeight - 10, // Extra spacing
+            behavior: 'smooth',
+          });
+        } 
+      }, 100);
     }
-  }, [categoriesSelection, products]);
+  } else {
+    setFilteredProducts([]);
+  }
+}, [categoriesSelection, products]);
+
+ 
 
   // Handle search results
   useEffect(() => {
@@ -98,6 +120,11 @@ export default function Home() {
     }
   }, [query, products]);
   console.log(filteredProducts, 'filtere peroduct');
+
+
+
+
+
   return (
     <div className="flex flex-col gap-8">
       {/* Banner Section */}
@@ -123,6 +150,10 @@ export default function Home() {
         <p className="text-description">Karama, Dubai</p>
       </div>
 
+
+        {/* Sticky Search & Categories Section */}
+      <div className="sticky top-0 py-3 z-200 bg-white transition-all duration-300">
+
       {/* Search Box */}
       <div className="w-full px-4">
         <SearchBox
@@ -142,6 +173,7 @@ export default function Home() {
           />
         </div>
       )}
+      </div>
 
       {/* Display Search Results */}
       {query && searchedProducts.length > 0 && (
@@ -151,27 +183,29 @@ export default function Home() {
         </div>
       )}
 
+        <>
+       {/* Recommended Section */}
+          {products.recommendedProducts.length > 0 && (
+            <div ref={recommendedRef}  className="flex w-full flex-col px-4">
+              <h2 className="text-primary pb-2">Recommended</h2>
+              {loading ? (
+                <p className="text-center text-gray-500">Loading products...</p>
+              ) : (
+                renderProductCards(products.recommendedProducts)
+              )}
+            </div>
+          )}
+
+       {/* Filtered Category Section */}
       {categoriesSelection && !query && filteredProducts.length > 0 && (
-        <div className="flex w-full flex-col px-4">
+        <div ref={filteredSectionRef} className="flex w-full flex-col px-4" >
           {filteredProducts.map((category) => renderCategorySection(category))}
         </div>
       )}
 
-      <>
-        {products.recommendedProducts.length > 0 && (
-          <div className="flex w-full flex-col px-4">
-            <h2 className="text-primary pb-2">Recommended</h2>
-            {loading ? (
-              <p className="text-center text-gray-500">Loading products...</p>
-            ) : (
-              renderProductCards(products.recommendedProducts)
-            )}
-          </div>
-        )}
-
         {/* All Categorized Products */}
         {products?.categorizedProducts?.length > 0 && (
-          <div className="flex w-full flex-col px-4">
+          <div  className="flex w-full flex-col px-4" >
             {products.categorizedProducts.map((category) =>
               renderCategorySection(category)
             )}
