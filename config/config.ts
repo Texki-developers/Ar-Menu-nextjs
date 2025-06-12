@@ -1,4 +1,4 @@
-import { FoodType } from './types/product.types';
+import { FoodType } from '../types/home/product.types';
 
 export const foodTypeImages: Record<FoodType, string> = {
   EGGETARIAN: '/assets/Veg/Eggetarian.png',

@@ -1,5 +1,5 @@
-import { IMAGE_URL } from '@/app/lib/axios';
-import { ProductType } from '@/app/types/product.types';
+import { IMAGE_URL } from '@/core/axios';
+import { ProductType } from '@/types/home/product.types';
 import Image from 'next/image';
 import React from 'react';
 

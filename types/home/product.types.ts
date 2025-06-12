@@ -1,4 +1,4 @@
-import { EFoodSpecialty } from '@/components/atoms/SpecialityTag';
+import { EFoodSpecialty } from '@/components/atoms/SpecialtyTag';
 
 export type CategoryType = {
   _id: string;
@@ -25,14 +25,14 @@ export type ProductType = {
   recommended_sides: ProductType[];
 };
 
-export type CategorisedType = {
+export type CategorizedType = {
   category: CategoryType;
   products: ProductType[];
 };
 
 export type ProductCategoryResponse = {
   recommendedProducts: ProductType[];
-  categorizedProducts: CategorisedType[];
+  categorizedProducts: CategorizedType[];
 };
 
 export type FoodType =

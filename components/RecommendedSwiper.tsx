@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import { FreeMode } from 'swiper/modules';
 import SideFoodCard from './SideFoodCard';
-import { ProductType } from '@/app/types/product.types';
+import { ProductType } from '@/types/home/product.types';
 
 export default function RecommendedSwiper({ items }: { items: ProductType[] }) {
   return (

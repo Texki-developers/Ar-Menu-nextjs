@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { MaterialSymbolsLightArrowLeftAltRounded } from './Icons';
 import Link from 'next/link';
-import { IMAGE_URL } from '@/app/lib/axios';
+import { IMAGE_URL } from '@/core/axios';
 
 export default function ProductImageSwiper({ image }: { image: string }) {
   console.log(image, 'image');

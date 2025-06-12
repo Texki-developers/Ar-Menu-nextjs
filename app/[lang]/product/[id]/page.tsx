@@ -1,12 +1,12 @@
 'use client';
 
-import { getProductsById } from '@/app/services/productService';
-import { ProductType } from '@/app/types/product.types';
+import { getProductsById } from '@/core/services/productService';
+import { ProductType } from '@/types/home/product.types';
 import FoodTypeImage from '@/components/FoodType';
 import { MageBox3dDownload } from '@/components/Icons';
 import ProductImageSwiper from '@/components/ProductImageSwiper';
 import RecommendedSwiper from '@/components/RecommendedSwiper';
-import SpecialityTag from '@/components/atoms/SpecialityTag';
+import SpecialityTag from '@/components/atoms/SpecialtyTag';
 import Tag from '@/components/atoms/Tag';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';

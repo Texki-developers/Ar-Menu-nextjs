@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-export const IMAGE_URL = 'https://menu.hackphiles.in/files/';
+export const IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
 
 const api = axios.create({
-  baseURL:
-    process.env.NEXT_PUBLIC_API_BASE_URL ||
-    'https://menu.hackphiles.in/api/v1/',
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   timeout: 10000, // 10 seconds
   headers: {
     'Content-Type': 'application/json',

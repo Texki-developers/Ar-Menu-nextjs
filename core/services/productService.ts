@@ -1,7 +1,6 @@
-import api from '../lib/axios';
-export const LIVE_API = 'https://menu.hackphiles.in/api/v1/';
+import api from '@/core/axios';
 
-export const getProductsNcategories = async () => {
+export const getProductsCategories = async () => {
   const response = await api.get('product/items');
   return response.data.data;
 };

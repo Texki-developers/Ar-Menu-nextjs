@@ -1,4 +1,5 @@
 'use client';
+
 import React, {
   useEffect,
   useCallback,
@@ -7,8 +8,9 @@ import React, {
   SetStateAction,
 } from 'react';
 import { MaterialSymbolsSearchRounded } from './Icons';
-import { searchProducts } from '@/app/services/productService';
-import { ProductType } from '@/app/types/product.types';
+import { ProductType } from '@/types/home/product.types';
+import { searchProducts } from '@/core/services/productService';
+import useTranslation from '@/hooks/translation-hook/useTranslation.hook';
 
 interface SearchProps {
   setProducts: Dispatch<SetStateAction<ProductType[]>>;
@@ -17,6 +19,7 @@ interface SearchProps {
 }
 
 export default function Search({ setProducts, query, setQuery }: SearchProps) {
+  const { t } = useTranslation();
   const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
   const debounce = useCallback(
@@ -59,7 +62,7 @@ export default function Search({ setProducts, query, setQuery }: SearchProps) {
         />
         <input
           type="text"
-          placeholder="Search For Biriyani"
+          placeholder={t?.home?.searchPlaceholder}
           className="text-description flex-1 outline-none"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
