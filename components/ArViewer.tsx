@@ -53,7 +53,6 @@ export default function ARViewer() {
     loader.load(
       '/assets/modal/lays.glb', // Make sure this path matches your file location
       (gltf) => {
-        console.log('Model loaded successfully');
         const model = gltf.scene;
 
         // Adjust scale and position as needed
@@ -72,14 +71,10 @@ export default function ARViewer() {
         // model.position.sub(center); // Uncomment if you want to center the model
 
         // Log model dimensions for debugging
-        console.log('Model dimensions:', size);
       },
       (xhr) => {
         if (xhr.lengthComputable) {
           const percentComplete = (xhr.loaded / xhr.total) * 100;
-          console.log(
-            `Loading model: ${Math.round(percentComplete)}% complete`
-          );
         }
       },
       (error) => {

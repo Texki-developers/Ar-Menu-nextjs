@@ -42,6 +42,7 @@ function ModelViewerComponent({ src, alt, ...props }: ModelViewerProps) {
           backgroundColor: '#dddddd6f',
           borderRadius: '10px',
           height: '160px',
+          objectFit: 'cover',
         }}
         src={src}
         alt={alt || '3D model'}
@@ -54,12 +55,6 @@ function ModelViewerComponent({ src, alt, ...props }: ModelViewerProps) {
           <MageBox3dDownload className="text-[1rem]" />
           <span>View in Table</span>
         </button>
-
-        {/* {arSupported === false && (
-          <p className="mt-[30%] bg-white p-2 text-sm text-red-500">
-            AR not supported on this device
-          </p>
-        )} */}
         {/* @ts-expect-error - Suppress any remaining TypeScript errors */}
       </model-viewer>
     </div>

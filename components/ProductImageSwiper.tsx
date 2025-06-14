@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { IMAGE_URL } from '@/core/axios';
 
 export default function ProductImageSwiper({ image }: { image: string }) {
-  console.log(image, 'image');
   return (
     <div className="relative aspect-[375/240] w-[100%]">
       <Link

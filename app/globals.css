@@ -145,10 +145,10 @@ button {
   transition: all 0.2s ease-in-out;
 }
 
-.btn-secondary:hover {
+/* .btn-secondary:hover {
   @apply border-primary-300 text-primary-300 font-[600];
-}
+} */
 
-.btn-secondary:active {
-  @apply border-primary-300 text-primary-300 font-[600];
+.btn-secondary-active {
+  @apply  border-primary-300 text-primary-300 font-[600] font-family-manrope rounded border-[1px]  bg-[rgba(248,246,246,1)] px-4 py-2;
 }

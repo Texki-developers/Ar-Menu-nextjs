@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SearchBox from '@/components/SearchBox';
 import CategoriesSwiper from '@/components/CategoriesSwiper';
 import {
@@ -8,18 +8,23 @@ import {
     ProductCategoryResponse,
     ProductType,
 } from '@/types/home/product.types';
-import { getProductsCategories } from '@/core/services/productService';
 import CardWrapper from '@/components/home/card-wrapper/CardWrapper';
 import CategorySection from '@/components/home/category-section/CategorySection';
+import { ApiResponse } from '@/core/http';
+import NoResult from '@/components/atoms/no-result/EmptyResult';
+import Recommended from '../recommended/Recommended';
 
-export default function Home() {
+interface IHomeProps {
+    categoryData: ApiResponse<ProductCategoryResponse>;
+}
+
+export default function Home({ categoryData }: IHomeProps) {
     const [products, setProducts] = useState<ProductCategoryResponse>({
         recommendedProducts: [],
         categorizedProducts: [],
     });
     const [categories, setCategories] = useState<string[]>([]);
     const [categoriesSelection, setCategoriesSelection] = useState<string>('');
-    const [loading, setLoading] = useState<boolean>(true);
     const [query, setQuery] = useState<string>('');
     const [searchedProducts, setSearchedProducts] = useState<ProductType[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<CategorizedType[]>(
@@ -27,51 +32,55 @@ export default function Home() {
     );
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            setLoading(true);
-            try {
-                const data = await getProductsCategories();
-                setProducts(data);
-                setCategories(
-                    data?.categorizedProducts?.map(
-                        (cat: CategorizedType) => cat.category.name
-                    ) || []
-                );
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            }
-            setLoading(false);
-        };
-
-        fetchProducts();
+        setProducts(categoryData.data);
+        setCategories(
+            categoryData.data?.categorizedProducts?.map(
+                (cat: CategorizedType) => cat.category.name
+            ) || []
+        );
     }, []);
 
     useEffect(() => {
         if (categoriesSelection) {
-            setFilteredProducts(
-                products.categorizedProducts?.filter(
-                    (cat) => cat.category?.name === categoriesSelection
-                ) || []
-            );
+            const filteredItems = [];
+            const productItems = [];
+
+            for (let i = 0; i < products?.categorizedProducts?.length; i++) {
+                if (
+                    products?.categorizedProducts[i].category?.name ===
+                    categoriesSelection
+                ) {
+                    filteredItems.push(products?.categorizedProducts[i]);
+                } else {
+                    productItems.push(products?.categorizedProducts[i]);
+                }
+            }
+            console.log({ productItems, filteredItems });
+            setFilteredProducts(filteredItems);
+            setProducts({
+                recommendedProducts: products?.recommendedProducts,
+                categorizedProducts: productItems,
+            });
         } else {
             setFilteredProducts([]);
+            setProducts(categoryData.data);
         }
-    }, [categoriesSelection, products]);
+    }, [categoriesSelection]);
 
     useEffect(() => {
         if (query) {
             const allProducts = [
-                ...(products.recommendedProducts || []),
-                ...(products.categorizedProducts?.flatMap((cat) => cat.products) || []),
+                ...(products?.categorizedProducts?.flatMap((cat) => cat.products) ||
+                    []),
             ];
-            const results = allProducts.filter((item) =>
+            const results = allProducts?.filter((item) =>
                 item.name.toLowerCase().includes(query.toLowerCase())
             );
             setSearchedProducts(results);
         } else {
             setSearchedProducts([]);
         }
-    }, [query, products]);
+    }, [query]);
 
     return (
         <>
@@ -82,40 +91,32 @@ export default function Home() {
                     setQuery={setQuery}
                 />
             </div>
-            {categories.length > 0 && (
+            {categories?.length > 0 && (
                 <div className="categories-wrapper flex flex-col">
                     <h2 className="text-primary px-4 pb-2">Categories</h2>
                     <CategoriesSwiper
                         categories={categories}
+                        selectedCategory={categoriesSelection}
                         setCategoriesSelection={setCategoriesSelection}
                     />
                 </div>
             )}
-            {query && searchedProducts.length > 0 && (
-                <div className="flex w-full flex-col px-4">
-                    <h2 className="text-primary pb-2">Search Results</h2>
-                    <CardWrapper products={searchedProducts} />
-                </div>
+            {searchedProducts?.length === 0 && query?.length > 0 && (
+                <NoResult
+                    title="Sorry"
+                    description="We couldn’t find any matching dishes."
+                />
             )}
-            {categoriesSelection && !query && filteredProducts.length > 0 && (
-                <div className="flex w-full flex-col px-4">
-                    {filteredProducts.map((category) => (
-                        <CategorySection key={category.category._id} category={category} />
-                    ))}
-                </div>
-            )}
-
-            <>
-                {products.recommendedProducts.length > 0 && (
+            <div>
+                {query && searchedProducts?.length > 0 && (
                     <div className="flex w-full flex-col px-4">
-                        <h2 className="text-primary pb-2">Recommended</h2>
-                        <CardWrapper products={products.recommendedProducts} />
+                        <h2 className="text-primary pb-2">Search Results</h2>
+                        <CardWrapper products={searchedProducts} />
                     </div>
                 )}
-
-                {products?.categorizedProducts?.length > 0 && (
+                {categoriesSelection && !query && filteredProducts?.length > 0 && (
                     <div className="flex w-full flex-col px-4">
-                        {products.categorizedProducts.map((category) => (
+                        {filteredProducts.map((category) => (
                             <CategorySection
                                 key={category.category._id}
                                 category={category}
@@ -123,7 +124,21 @@ export default function Home() {
                         ))}
                     </div>
                 )}
-            </>
+                <>
+                    <Recommended products={products} />
+
+                    {products?.categorizedProducts?.length > 0 && (
+                        <div className="flex w-full flex-col px-4">
+                            {products?.categorizedProducts?.map((category) => (
+                                <CategorySection
+                                    key={category.category._id}
+                                    category={category}
+                                />
+                            ))}
+                        </div>
+                    )}
+                </>
+            </div>
         </>
     );
 }

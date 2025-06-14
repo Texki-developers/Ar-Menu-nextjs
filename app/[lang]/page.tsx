@@ -1,19 +1,19 @@
 import HomeBanner from '@/components/home/banner/banner';
 import Title from '@/components/home/title/Title';
 import HomeMainSection from '@/components/home/main-section/HomeMainSection';
-import { ILocale } from '@/lib/dictionaries/config';
+import { ProductService } from '@/core/services/productService';
+import { notFound } from 'next/navigation';
 
-export default async function Home({
-  params,
-}: {
-  params: Promise<{ lang: ILocale }>;
-}) {
-  const { lang } = await params;
+export default async function Home() {
+  const categories = await ProductService.getProductsCategories();
+  if (!categories) {
+    return notFound();
+  }
   return (
     <div className="flex flex-col gap-8">
       <HomeBanner />
       <Title title="Coz Coffee" subtitle="Karmas, Dubai" />
-      <HomeMainSection />
+      <HomeMainSection categoryData={categories} />
     </div>
   );
 }
