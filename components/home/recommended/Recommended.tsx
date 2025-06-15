@@ -13,7 +13,7 @@ const Recommended = ({ products }: { products: ProductCategoryResponse }) => {
                     className={`flex cursor-pointer items-center justify-between ${showAll ? '' : 'border-b'} border-b-[#c2c2d2]`}
                 >
                     <h2 className={`text-primary py-3 capitalize`}>
-                        Recommended
+                        Recommended{' '}
                         <span className="text-md text-gray-500">
                             ({products?.recommendedProducts?.length})
                         </span>

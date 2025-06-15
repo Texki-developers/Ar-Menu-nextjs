@@ -64,7 +64,7 @@ export default function Product() {
       <ProductImageSwiper image={data?.image as string} />
 
       <div className="z-100 mt-[-4rem] flex flex-col gap-[1.5rem] rounded-t-[32px] bg-white p-[1rem]">
-        <div className="flex flex-col gap-[1rem] px-[1rem]">
+        <div className="flex flex-col gap-[1rem]">
           <div className="flex gap-[1rem]">
             {data?.speciality && (
               <SpecialityTag variant="dark" tag={data?.speciality} />
@@ -107,7 +107,7 @@ export default function Product() {
               </span>
             )}
           </p>
-          <button className="btn-primary text-description flex items-center gap-[0.5rem] rounded-full font-[600] text-white">
+          <button className="btn-primary text-description flex items-center gap-[0.5rem] rounded-full p-3 font-[600] text-white">
             <MageBox3dDownload className="text-[1rem]" />
             <span>View in Table</span>
           </button>

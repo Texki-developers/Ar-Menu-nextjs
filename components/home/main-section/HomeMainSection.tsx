@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SearchBox from '@/components/SearchBox';
 import CategoriesSwiper from '@/components/CategoriesSwiper';
 import {
@@ -13,18 +13,19 @@ import CategorySection from '@/components/home/category-section/CategorySection'
 import { ApiResponse } from '@/core/http';
 import NoResult from '@/components/atoms/no-result/EmptyResult';
 import Recommended from '../recommended/Recommended';
+import useProductStore from '@/config/store/productStore';
 
 interface IHomeProps {
     categoryData: ApiResponse<ProductCategoryResponse>;
 }
 
-export default function Home({ categoryData }: IHomeProps) {
+function Home({ categoryData }: IHomeProps) {
     const [products, setProducts] = useState<ProductCategoryResponse>({
         recommendedProducts: [],
         categorizedProducts: [],
     });
     const [categories, setCategories] = useState<string[]>([]);
-    const [categoriesSelection, setCategoriesSelection] = useState<string>('');
+    const { selectedCategory, setSelectedCategory } = useProductStore();
     const [query, setQuery] = useState<string>('');
     const [searchedProducts, setSearchedProducts] = useState<ProductType[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<CategorizedType[]>(
@@ -39,33 +40,6 @@ export default function Home({ categoryData }: IHomeProps) {
             ) || []
         );
     }, []);
-
-    useEffect(() => {
-        if (categoriesSelection) {
-            const filteredItems = [];
-            const productItems = [];
-
-            for (let i = 0; i < products?.categorizedProducts?.length; i++) {
-                if (
-                    products?.categorizedProducts[i].category?.name ===
-                    categoriesSelection
-                ) {
-                    filteredItems.push(products?.categorizedProducts[i]);
-                } else {
-                    productItems.push(products?.categorizedProducts[i]);
-                }
-            }
-            console.log({ productItems, filteredItems });
-            setFilteredProducts(filteredItems);
-            setProducts({
-                recommendedProducts: products?.recommendedProducts,
-                categorizedProducts: productItems,
-            });
-        } else {
-            setFilteredProducts([]);
-            setProducts(categoryData.data);
-        }
-    }, [categoriesSelection]);
 
     useEffect(() => {
         if (query) {
@@ -94,11 +68,7 @@ export default function Home({ categoryData }: IHomeProps) {
             {categories?.length > 0 && (
                 <div className="categories-wrapper flex flex-col">
                     <h2 className="text-primary px-4 pb-2">Categories</h2>
-                    <CategoriesSwiper
-                        categories={categories}
-                        selectedCategory={categoriesSelection}
-                        setCategoriesSelection={setCategoriesSelection}
-                    />
+                    <CategoriesSwiper categories={categories} />
                 </div>
             )}
             {searchedProducts?.length === 0 && query?.length > 0 && (
@@ -114,7 +84,7 @@ export default function Home({ categoryData }: IHomeProps) {
                         <CardWrapper products={searchedProducts} />
                     </div>
                 )}
-                {categoriesSelection && !query && filteredProducts?.length > 0 && (
+                {/* {selectedCategory && !query && filteredProducts?.length > 0 && (
                     <div className="flex w-full flex-col px-4">
                         {filteredProducts.map((category) => (
                             <CategorySection
@@ -123,10 +93,9 @@ export default function Home({ categoryData }: IHomeProps) {
                             />
                         ))}
                     </div>
-                )}
+                )} */}
                 <>
                     <Recommended products={products} />
-
                     {products?.categorizedProducts?.length > 0 && (
                         <div className="flex w-full flex-col px-4">
                             {products?.categorizedProducts?.map((category) => (
@@ -142,3 +111,5 @@ export default function Home({ categoryData }: IHomeProps) {
         </>
     );
 }
+
+export default React.memo(Home);

@@ -1,14 +1,20 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import useProductStore from '@/config/store/productStore';
+import React, { useEffect } from 'react';
 
 export default function CategoriesSwiper({
   categories,
-  selectedCategory,
-  setCategoriesSelection,
 }: {
   categories: string[];
-  selectedCategory: string;
-  setCategoriesSelection: Dispatch<SetStateAction<string>>;
 }) {
+  const { selectedCategory, setSelectedCategory } = useProductStore();
+
+  useEffect(() => {
+    const item = document.getElementById(`category-${selectedCategory}`);
+    if (item) {
+      item.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [selectedCategory]);
+  
   return (
     <div className="categories-wrapper flex flex-nowrap gap-[8px] overflow-x-auto px-[1rem]">
       {categories.map((category, index) => (
@@ -16,12 +22,12 @@ export default function CategoriesSwiper({
           key={index}
           onClick={() => {
             if (category === selectedCategory) {
-              setCategoriesSelection('');
+              setSelectedCategory('');
             } else {
-              setCategoriesSelection(category);
+              setSelectedCategory(category);
             }
           }}
-          className={`btn-secondary${selectedCategory === category ? '-active' : ''} text-description text-nowrap`}
+          className={`btn-secondary${selectedCategory === category ? '-active' : ''} text-description capitalize text-nowrap`}
         >
           {category}
         </button>

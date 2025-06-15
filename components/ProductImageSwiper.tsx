@@ -10,11 +10,11 @@ export default function ProductImageSwiper({ image }: { image: string }) {
     <div className="relative aspect-[375/240] w-[100%]">
       <Link
         href="/"
-        className="absolute top-[5px] left-[5px] z-200 aspect-square rounded-full bg-[rgba(255,255,255,0.5)] backdrop-blur-md"
+        className="absolute top-[15px] left-[15px] z-200 grid aspect-square h-[40px] w-[40px] place-items-center rounded-full bg-[rgba(255,255,255,0.31)] shadow-2xl backdrop-blur-sm"
       >
         <MaterialSymbolsLightArrowLeftAltRounded fontSize="3rem" />
       </Link>
-      <Image src={`${IMAGE_URL}${image}`} fill alt="cafe coffee" />
+      <Image objectFit='cover' src={`${IMAGE_URL}${image}`} fill alt="cafe coffee" />
     </div>
   );
 }
