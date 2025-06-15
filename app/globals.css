@@ -152,3 +152,4 @@ button {
 .btn-secondary-active {
   @apply  border-primary-300 text-primary-300 font-[600] font-family-manrope rounded border-[1px]  bg-[rgba(248,246,246,1)] px-4 py-2;
 }
+
