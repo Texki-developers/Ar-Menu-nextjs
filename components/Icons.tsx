@@ -72,9 +72,7 @@ export function MageBox3dDownload(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function MaterialSymbolsLightArrowLeftAltRounded(
-  props: SVGProps<SVGSVGElement>
-) {
+export function MaterialSymbolsLightArrowLeftAltRounded() {
   return (
     <svg
       width="21"

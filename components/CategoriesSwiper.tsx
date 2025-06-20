@@ -14,7 +14,7 @@ export default function CategoriesSwiper({
       item.scrollIntoView({ behavior: 'smooth' });
     }
   }, [selectedCategory]);
-  
+
   return (
     <div className="categories-wrapper flex flex-nowrap gap-[8px] overflow-x-auto px-[1rem]">
       {categories.map((category, index) => (
@@ -27,7 +27,7 @@ export default function CategoriesSwiper({
               setSelectedCategory(category);
             }
           }}
-          className={`btn-secondary${selectedCategory === category ? '-active' : ''} text-description capitalize text-nowrap`}
+          className={`btn-secondary${selectedCategory === category ? '-active' : ''} text-description text-nowrap capitalize`}
         >
           {category}
         </button>

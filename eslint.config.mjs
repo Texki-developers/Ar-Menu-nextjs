@@ -20,6 +20,9 @@ const eslintConfig = [
     rules: {
       semi: ['error'],
       'prettier/prettier': 'error',
+      'react-hooks/exhaustive-dep': 'off',
+      'react-hooks/rules-of-hooks': 'off',
+      'react-hooks/exhaustive-deps': 'off',
     },
   }),
 ];

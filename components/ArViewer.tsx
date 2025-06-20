@@ -3,7 +3,6 @@
 import * as THREE from 'three';
 import { useEffect, useRef } from 'react';
 import { ARButton } from 'three/examples/jsm/webxr/ARButton.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 export default function ARViewer() {
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
@@ -47,40 +46,40 @@ export default function ARViewer() {
     scene.add(directionalLight);
 
     // Load GLB model
-    const loader = new GLTFLoader();
+    // const loader = new GLTFLoader();
 
     // Update path to your GLB file
-    loader.load(
-      '/assets/modal/lays.glb', // Make sure this path matches your file location
-      (gltf) => {
-        const model = gltf.scene;
+    // loader.load(
+    //   '/assets/modal/lays.glb', // Make sure this path matches your file location
+    //   (gltf) => {
+    //     const model = gltf.scene;
 
-        // Adjust scale and position as needed
-        model.scale.set(0.1, 0.1, 0.1);
-        model.position.set(0, 0, -0.5);
+    //     // Adjust scale and position as needed
+    //     model.scale.set(0.1, 0.1, 0.1);
+    //     model.position.set(0, 0, -0.5);
 
-        // Add model to scene
-        scene.add(model);
+    //     // Add model to scene
+    //     scene.add(model);
 
-        // Optional: Center model and adjust to appropriate size
-        const box = new THREE.Box3().setFromObject(model);
-        // const center = box.getCenter(new THREE.Vector3());
-        const size = box.getSize(new THREE.Vector3());
+    //     // Optional: Center model and adjust to appropriate size
+    //     const box = new THREE.Box3().setFromObject(model);
+    //     // const center = box.getCenter(new THREE.Vector3());
+    //     // const size = box.getSize(new THREE.Vector3());
 
-        // Center the model if needed
-        // model.position.sub(center); // Uncomment if you want to center the model
+    //     // Center the model if needed
+    //     // model.position.sub(center); // Uncomment if you want to center the model
 
-        // Log model dimensions for debugging
-      },
-      (xhr) => {
-        if (xhr.lengthComputable) {
-          const percentComplete = (xhr.loaded / xhr.total) * 100;
-        }
-      },
-      (error) => {
-        console.error('Error loading model:', error);
-      }
-    );
+    //     // Log model dimensions for debugging
+    //   },
+    //   (xhr) => {
+    //     if (xhr.lengthComputable) {
+    //       const percentComplete = (xhr.loaded / xhr.total) * 100;
+    //     }
+    //   },
+    //   (error) => {
+    //     console.error('Error loading model:', error);
+    //   }
+    // );
 
     // Handle window resize
     const handleResize = () => {

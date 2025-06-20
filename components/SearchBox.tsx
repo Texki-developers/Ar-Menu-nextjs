@@ -1,24 +1,15 @@
 'use client';
 
-import React, {
-  useEffect,
-  useCallback,
-  useRef,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { MaterialSymbolsSearchRounded } from './Icons';
-import { ProductType } from '@/types/home/product.types';
-import { searchProducts } from '@/core/services/productService';
 import useTranslation from '@/hooks/translation-hook/useTranslation.hook';
 
 interface SearchProps {
-  setProducts: Dispatch<SetStateAction<ProductType[]>>;
   query: string;
   setQuery: Dispatch<SetStateAction<string>>;
 }
 
-export default function Search({ setProducts, query, setQuery }: SearchProps) {
+export default function Search({ query, setQuery }: SearchProps) {
   const { t } = useTranslation();
   // const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
@@ -62,7 +53,7 @@ export default function Search({ setProducts, query, setQuery }: SearchProps) {
         <input
           type="text"
           placeholder={t?.home?.searchPlaceholder}
-          className="text-base flex-1 outline-none"
+          className="flex-1 text-base outline-none"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
