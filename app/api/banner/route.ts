@@ -2,11 +2,13 @@ import { NextRequest } from 'next/server';
 
 // app/api/banner/route.ts
 export async function GET(request: NextRequest) {
-  const title = request.nextUrl.searchParams.get('title');
-  const kcal = request.nextUrl.searchParams.get('kcal') ?? '';
-  const fat = request.nextUrl.searchParams.get('fat') ?? '';
-  const sugar = request.nextUrl.searchParams.get('sugar') ?? '';
-  const protein = request.nextUrl.searchParams.get('protein') ?? '';
+  const url = request.nextUrl.searchParams.get('title');
+  const items = url?.split('_');
+  const title = items?.[0] === 'undefined' ? '' : items?.[0];
+  const kcal = items?.[1] === 'undefined' ? '' : items?.[1];
+  const fat = items?.[2] === 'undefined' ? '' : items?.[2];
+  const sugar = items?.[3] === 'undefined' ? '' : items?.[3];
+  const protein = items?.[4] === 'undefined' ? '' : items?.[4];
   const html = `
     <!DOCTYPE html>
     <html lang="en">
