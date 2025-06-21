@@ -21,7 +21,6 @@ function ModelViewerComponent({
   type,
   ...props
 }: ModelViewerProps) {
-  const [buttonClicked, setButtonClicked] = useState(false);
   useEffect(() => {
     import('@google/model-viewer');
     const modelViewer = document.getElementById(
@@ -55,12 +54,11 @@ function ModelViewerComponent({
         {...props}
       >
         <button
-          onClick={() => setButtonClicked(true)}
           slot="ar-button"
           className="btn-primary text-description absolute right-1 bottom-1 z-100 flex gap-[0.5rem] rounded-full font-[600] text-white"
         >
           <MageBox3dDownload className="text-[1rem]" />
-          <span>{buttonClicked ? 'Loading...' : 'View in Table'}</span>
+          <span> View in Table</span>
         </button>
         {/* @ts-expect-error - Suppress any remaining TypeScript errors */}
       </model-viewer>

@@ -92,7 +92,9 @@ export default function FoodCard({
           loaded={(value: any) => {
             console.log(value, 'loaded...');
           }}
-          ios-src={`${IMAGE_URL}${items?.three_usdz}`}
+          ios-src={`${IMAGE_URL}${items?.three_usdz}#callToAction=Add%20to%20cart&checkoutTitle=${encodeURIComponent(
+            items?.name
+          )}&checkoutSubtitle=${encodeURIComponent(items?.desc)}&price=${items?.offer_price}`}
           ar
           src={`${IMAGE_URL}${items?.three_glb}`}
           alt={items?.name}
