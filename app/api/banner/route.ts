@@ -26,13 +26,11 @@ export async function GET(request: NextRequest) {
           }
           body {
             height: 100%;
-            background: #000000;
           }
           .container {
             width: 100%;
             height: 100%;
-            background: #000000;
-            color: white;
+            color: black;
             padding: 20px;
             font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
             margin: 0 auto;
@@ -58,7 +56,7 @@ export async function GET(request: NextRequest) {
             margin-top: 10px;
           }
           .item.border {
-            border-left: 1px solid white;
+            border-left: 1px solid black;
           }
           .item h6 {
             font-weight: 500;
