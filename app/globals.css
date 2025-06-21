@@ -30,6 +30,9 @@
   --spacing-189: 189px;
 }
 
+body {
+  background: #000;
+}
 button {
   cursor: pointer;
 }

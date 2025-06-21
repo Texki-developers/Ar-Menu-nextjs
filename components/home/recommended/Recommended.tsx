@@ -22,7 +22,12 @@ const Recommended = ({ products }: { products: ProductCategoryResponse }) => {
             <DropDownIcon />
           </div>
         </div>
-        {showAll && <CardWrapper products={products?.recommendedProducts} />}
+        {showAll && (
+          <CardWrapper
+            type="recommended"
+            products={products?.recommendedProducts}
+          />
+        )}
       </div>
     )
   );

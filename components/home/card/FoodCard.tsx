@@ -1,16 +1,23 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ModelViewer from '../../modelViewer';
 import { ProductType } from '@/types/home/product.types';
 import Link from 'next/link';
 import FoodTypeImage from '../../FoodType';
+import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import SpecialtyTag from '../../atoms/SpecialtyTag';
 import { IMAGE_URL } from '@/core/axios';
 import { useParams } from 'next/navigation';
 
-export default function FoodCard({ items }: { items: ProductType }) {
+export default function FoodCard({
+  items,
+  type,
+}: {
+  items: ProductType;
+  type?: 'category' | 'search' | 'recommended';
+}) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const maxChars = 80;
   const [isExpanded, setExpanded] = useState<boolean>(false);
@@ -46,7 +53,7 @@ export default function FoodCard({ items }: { items: ProductType }) {
             {displayText}
             {!isExpanded && shouldTruncate && (
               <button
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   setExpanded(true);
                 }}
@@ -75,13 +82,17 @@ export default function FoodCard({ items }: { items: ProductType }) {
         <ModelViewer
           ref={modelRef}
           label={items?.name}
-          poster={`${IMAGE_URL}${items?.image}`}
+          type={type}
+          // poster={`${IMAGE_URL}${items?.image}`}
           loading="lazy"
           auto-rotate
           key={items?._id}
           camera-controls
           ar-modes="scene-viewer quick-look"
           touch-action="pan-y"
+          loaded={(value: any) => {
+            console.log(value, 'loaded...');
+          }}
           ios-src={`${IMAGE_URL}${items?.three_usdz}`}
           ar
           src={`${IMAGE_URL}${items?.three_glb}`}

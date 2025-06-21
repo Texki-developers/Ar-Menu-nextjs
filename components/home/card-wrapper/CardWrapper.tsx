@@ -4,13 +4,16 @@ import React from 'react';
 
 interface Props {
   products: ProductType[];
+  type?: 'category' | 'search' | 'recommended';
 }
 
-const CardWrapper = ({ products }: Props) => {
+const CardWrapper = ({ products, type }: Props) => {
   if (!products || products.length === 0) {
     return <p className="text-center text-gray-500">No products available.</p>;
   }
-  return products.map((item) => <FoodCard key={item._id} items={item} />);
+  return products.map(item => (
+    <FoodCard type={type} key={item._id} items={item} />
+  ));
 };
 
 export default React.memo(CardWrapper);

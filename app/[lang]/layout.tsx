@@ -31,7 +31,7 @@ export default async function RootLayout({
       <body
         className={`${PlusJakartaSans.className} ${ManRopeFont.className} flex w-[100%] justify-center antialiased`}
       >
-        <div className="min-h-[100vh] w-[100%] max-w-[450px]">
+        <div className="min-h-[100vh] w-[100%] max-w-[450px] bg-white">
           <TranslationWrapper value={dict}>{children}</TranslationWrapper>
         </div>
       </body>

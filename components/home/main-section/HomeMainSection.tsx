@@ -39,10 +39,9 @@ function Home({ categoryData }: IHomeProps) {
   useEffect(() => {
     if (query) {
       const allProducts = [
-        ...(products?.categorizedProducts?.flatMap((cat) => cat.products) ||
-          []),
+        ...(products?.categorizedProducts?.flatMap(cat => cat.products) || []),
       ];
-      const results = allProducts?.filter((item) =>
+      const results = allProducts?.filter(item =>
         item.name.toLowerCase().includes(query.toLowerCase())
       );
       setSearchedProducts(results);
@@ -72,24 +71,15 @@ function Home({ categoryData }: IHomeProps) {
         {query && searchedProducts?.length > 0 && (
           <div className="flex w-full flex-col px-4">
             <h2 className="text-primary pb-2">Search Results</h2>
-            <CardWrapper products={searchedProducts} />
+            <CardWrapper type="search" products={searchedProducts} />
           </div>
         )}
-        {/* {selectedCategory && !query && filteredProducts?.length > 0 && (
-                    <div className="flex w-full flex-col px-4">
-                        {filteredProducts.map((category) => (
-                            <CategorySection
-                                key={category.category._id}
-                                category={category}
-                            />
-                        ))}
-                    </div>
-                )} */}
+
         <>
           <Recommended products={products} />
           {products?.categorizedProducts?.length > 0 && (
             <div className="flex w-full flex-col px-4">
-              {products?.categorizedProducts?.map((category) => (
+              {products?.categorizedProducts?.map(category => (
                 <CategorySection
                   key={category.category._id}
                   category={category}
