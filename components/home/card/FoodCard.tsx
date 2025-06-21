@@ -29,6 +29,7 @@ export default function FoodCard({
   const modelRef = useRef(null);
 
   const { lang } = useParams();
+  const bannerUrl = 'https://ar-menu-dev.netlify.app/api/banner?message=Hello%20World';
 
   return (
     <div
@@ -92,9 +93,7 @@ export default function FoodCard({
           loaded={(value: any) => {
             console.log(value, 'loaded...');
           }}
-          ios-src={`${IMAGE_URL}${items?.three_usdz}#callToAction=Add%20to%20cart&checkoutTitle=${encodeURIComponent(
-            items?.name
-          )}&checkoutSubtitle=${encodeURIComponent(items?.desc)}&price=${items?.offer_price}`}
+          ios-src={`${IMAGE_URL}${items?.three_usdz}#custom=${encodeURIComponent(bannerUrl)}&customHeight=large`}
           ar
           src={`${IMAGE_URL}${items?.three_glb}`}
           alt={items?.name}
