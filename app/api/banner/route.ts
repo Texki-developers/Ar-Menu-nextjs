@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
           name="viewport"
           content="width=device-width, initial-scale=1.0" />
         <title>AR Daddy</title>
-        <style>
+        <style type="text/css">
           * {
             margin: 0;
             padding: 0;
@@ -26,10 +26,9 @@ export async function GET(request: NextRequest) {
             width: 100%;
             height: 100%;
             background: #000000;
-            width: 400px;
-            height: 150px;
             color: white;
             padding: 20px;
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
           }
           .title {
             width: 100%;
