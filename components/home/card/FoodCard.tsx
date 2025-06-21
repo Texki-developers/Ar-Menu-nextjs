@@ -29,7 +29,8 @@ export default function FoodCard({
   const modelRef = useRef(null);
 
   const { lang } = useParams();
-  const bannerUrl = 'https://ar-menu-dev.netlify.app/api/banner?message=Hello%20World';
+  const bannerUrl =
+    'https://ar-menu-dev.netlify.app/api/banner?message=Hello%20World';
 
   return (
     <div
@@ -90,9 +91,6 @@ export default function FoodCard({
           camera-controls
           ar-modes="scene-viewer quick-look"
           touch-action="pan-y"
-          loaded={(value: any) => {
-            console.log(value, 'loaded...');
-          }}
           ios-src={`${IMAGE_URL}${items?.three_usdz}#custom=${encodeURIComponent(bannerUrl)}&customHeight=large`}
           ar
           src={`${IMAGE_URL}${items?.three_glb}`}

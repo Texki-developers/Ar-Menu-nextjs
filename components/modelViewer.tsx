@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { MageBox3dDownload } from './Icons';
 import SmallLoading from './atoms/loading/small/smallLoading';
 
