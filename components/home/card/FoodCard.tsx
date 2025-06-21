@@ -29,8 +29,7 @@ export default function FoodCard({
   const modelRef = useRef(null);
 
   const { lang } = useParams();
-  const bannerUrl =
-    'https://ar-menu-dev.netlify.app/api/banner?message=Hello%20World';
+  const bannerUrl = `https://ar-menu-dev.netlify.app/api/banner?title=${encodeURIComponent(items?.name)}&kcal=${100}&fat=${20}&sugar=${30}&protein=${12}`;
 
   return (
     <div
