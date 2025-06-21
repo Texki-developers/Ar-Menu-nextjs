@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import ModelViewer from '../../modelViewer';
 import { ProductType } from '@/types/home/product.types';
 import Link from 'next/link';
 import FoodTypeImage from '../../FoodType';
-import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import SpecialtyTag from '../../atoms/SpecialtyTag';
 import { IMAGE_URL } from '@/core/axios';

@@ -55,7 +55,7 @@ export default function Search({ query, setQuery }: SearchProps) {
           placeholder={t?.home?.searchPlaceholder}
           className="flex-1 text-base outline-none"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={e => setQuery(e.target.value)}
         />
       </div>
     </div>

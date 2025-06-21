@@ -5,7 +5,7 @@ interface ProductStore {
   setSelectedCategory: (category: string) => void;
 }
 
-const useProductStore = create<ProductStore>((set) => ({
+const useProductStore = create<ProductStore>(set => ({
   selectedCategory: '',
   setSelectedCategory: (category: string) =>
     set({ selectedCategory: category }),

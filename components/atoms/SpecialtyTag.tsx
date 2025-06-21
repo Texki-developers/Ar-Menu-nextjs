@@ -129,7 +129,7 @@ export default function SpecialityTag({
         {tag
           .toLowerCase()
           .replace(/_/g, ' ')
-          .replace(/\b\w/g, (char) => char.toUpperCase())}
+          .replace(/\b\w/g, char => char.toUpperCase())}
       </p>
     </div>
   );

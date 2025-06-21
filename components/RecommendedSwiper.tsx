@@ -18,7 +18,7 @@ export default function RecommendedSwiper({ items }: { items: ProductType[] }) {
         className="w-full"
       >
         {items &&
-          items.map((sides) => (
+          items.map(sides => (
             <SwiperSlide key={sides?._id} className="w-auto">
               <SideFoodCard items={sides} />
             </SwiperSlide>

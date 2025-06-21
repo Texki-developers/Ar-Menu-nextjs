@@ -84,7 +84,7 @@ export default function Product() {
 
         <div className="flex flex-wrap gap-[0.5rem]">
           {data?.recipes?.length ? (
-            data.recipes.map((recipe) => <Tag key={recipe} text={recipe} />)
+            data.recipes.map(recipe => <Tag key={recipe} text={recipe} />)
           ) : (
             <p className="text-gray-500">No recipes available.</p>
           )}

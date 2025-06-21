@@ -28,7 +28,7 @@ function ModelViewerComponent({
       `model-viewer-${label}-${type}`
     );
     if (modelViewer) {
-      modelViewer.addEventListener('load', (e: any) => {
+      modelViewer.addEventListener('load', () => {
         document
           .getElementById(`loading-indicator-${label}-${type}`)
           ?.classList.add('hidden');

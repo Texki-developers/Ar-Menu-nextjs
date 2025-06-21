@@ -44,8 +44,8 @@ const CategorySection = ({ category }: Props) => {
         </div>
       </div>
       {showAll &&
-        category.products.map((item) => (
-          <FoodCard type={"category"} key={item._id} items={item} />
+        category.products.map(item => (
+          <FoodCard type={'category'} key={item._id} items={item} />
         ))}
     </div>
   );
