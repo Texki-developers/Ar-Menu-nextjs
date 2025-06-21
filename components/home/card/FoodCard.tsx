@@ -89,7 +89,7 @@ export default function FoodCard({
           camera-controls
           ar-modes="scene-viewer quick-look"
           touch-action="pan-y"
-          ios-src={`${IMAGE_URL}${items?.three_usdz}#custom=${encodeURIComponent(bannerUrl)}`}
+          ios-src={`${IMAGE_URL}${items?.three_usdz}#custom=${encodeURIComponent(bannerUrl)}&customHeight=large`}
           ar
           src={`${IMAGE_URL}${items?.three_glb}`}
           alt={items?.name}

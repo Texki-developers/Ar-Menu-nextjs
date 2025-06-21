@@ -24,6 +24,10 @@ export async function GET(request: NextRequest) {
             padding: 0;
             box-sizing: border-box;
           }
+          body {
+            height: 100%;
+            background: #000000;
+          }
           .container {
             width: 100%;
             height: 100%;
@@ -31,6 +35,7 @@ export async function GET(request: NextRequest) {
             color: white;
             padding: 20px;
             font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 0 auto;
           }
           .title {
             width: 100%;
