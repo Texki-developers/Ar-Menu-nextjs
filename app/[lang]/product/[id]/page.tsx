@@ -7,7 +7,7 @@ import {
   MageBox3dDownload,
   MaterialSymbolsLightArrowLeftAltRounded,
 } from '@/components/Icons';
-import ProductImageSwiper from '@/components/ProductImageSwiper';
+// import ProductImageSwiper from '@/components/ProductImageSwiper';
 import RecommendedSwiper from '@/components/RecommendedSwiper';
 import SpecialityTag from '@/components/atoms/SpecialtyTag';
 import Tag from '@/components/atoms/Tag';
