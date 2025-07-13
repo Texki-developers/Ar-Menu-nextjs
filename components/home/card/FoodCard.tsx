@@ -86,12 +86,16 @@ export default function FoodCard({
           showButton
           style={{
             width: '160px',
-            background: 'linear-gradient(180deg, #fdf6f0 0%, #ffe5d9 100%)',
+            background: 'linear-gradient(180deg, #ffe2e2 0%, #ffc3a0 100%)',
             borderRadius: '10px',
             height: '160px',
           }}
           auto-rotate
           key={items?._id}
+          containerStyle={{
+            minWidth: '160px',
+            minHeight: '160px',
+          }}
           camera-controls
           ar-modes="scene-viewer quick-look"
           touch-action="pan-y"

@@ -13,6 +13,8 @@ interface ModelViewerProps {
   width?: string;
   height?: string;
   showButton?: boolean;
+  containerStyle?: React.CSSProperties;
+  style?: React.CSSProperties;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
@@ -22,6 +24,8 @@ function ModelViewerComponent({
   alt,
   label,
   type,
+  containerStyle,
+  style,
   ...props
 }: ModelViewerProps) {
   useEffect(() => {
@@ -39,7 +43,7 @@ function ModelViewerComponent({
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative" style={containerStyle}>
       {/* @ts-expect-error - Suppress any remaining TypeScript errors */}
       <model-viewer
         id={`model-viewer-${label}-${type}`}
@@ -48,6 +52,7 @@ function ModelViewerComponent({
         powerPreference="low-power"
         ar-modes="scene-viewer quick-look"
         alt={alt || '3D model'}
+        style={style}
         {...props}
       >
         {props?.showButton && (
