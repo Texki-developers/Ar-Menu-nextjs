@@ -3,20 +3,27 @@
 import { getProductsById } from '@/core/services/productService';
 import { ProductType } from '@/types/home/product.types';
 import FoodTypeImage from '@/components/FoodType';
-import { MageBox3dDownload } from '@/components/Icons';
+import {
+  MageBox3dDownload,
+  MaterialSymbolsLightArrowLeftAltRounded,
+} from '@/components/Icons';
 import ProductImageSwiper from '@/components/ProductImageSwiper';
 import RecommendedSwiper from '@/components/RecommendedSwiper';
 import SpecialityTag from '@/components/atoms/SpecialtyTag';
 import Tag from '@/components/atoms/Tag';
 import { useParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import ModelViewer from '@/components/modelViewer';
+import { IMAGE_URL } from '@/core/axios';
+import Link from 'next/link';
 
 export default function Product() {
   const { id } = useParams();
   const [data, setData] = useState<ProductType | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const modelRef = useRef(null);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -58,11 +65,38 @@ export default function Product() {
       </div>
     );
   }
-
+  const bannerUrl = `https://ar-menu-dev.netlify.app/api/banner?title=${encodeURIComponent(data?.name as string)}_${100}_${20}_${30}_${12}`;
   return (
-    <div className="flex flex-col gap-[2rem]">
-      <ProductImageSwiper image={data?.image as string} />
-
+    <div className="relative flex flex-col gap-[2rem]">
+      {/* <ProductImageSwiper image={data?.image as string} /> */}
+      <Link
+        href="/"
+        className="absolute top-[15px] left-[15px] z-200 grid aspect-square h-[40px] w-[40px] place-items-center rounded-full bg-[rgba(255,255,255,0.31)] shadow-2xl backdrop-blur-sm"
+      >
+        <MaterialSymbolsLightArrowLeftAltRounded />
+      </Link>
+      <div className="min-h-[300px]">
+        <ModelViewer
+          ref={modelRef}
+          label={data?.name}
+          loading="lazy"
+          poster={`${IMAGE_URL}${data?.image}`}
+          style={{
+            width: 'min(100vw, 450px)',
+            background: 'linear-gradient(180deg, #ffe2e2 0%, #ffc3a0 100%)',
+            height: '300px',
+          }}
+          auto-rotate
+          key={data?._id}
+          camera-controls
+          ar-modes="scene-viewer quick-look"
+          touch-action="pan-y"
+          ios-src={`${IMAGE_URL}${data?.three_usdz}#custom=${encodeURIComponent(bannerUrl)}&customHeight=large`}
+          ar
+          src={`${IMAGE_URL}${data?.three_glb}`}
+          alt={data?.name}
+        />
+      </div>
       <div className="z-100 mt-[-4rem] flex flex-col gap-[1.5rem] rounded-t-[32px] bg-white p-[1rem]">
         <div className="flex flex-col gap-[1rem]">
           <div className="flex gap-[1rem]">
@@ -98,17 +132,17 @@ export default function Product() {
           </div>
         )}
 
-        <div className="fixed bottom-0 left-0 flex h-[4rem] w-[100%] items-center justify-between bg-white px-[1rem]">
-          <p className="text-body flex h-max items-center gap-1 font-[600_!important]">
+        <div className="fixed bottom-0 left-0 flex h-[4rem] w-[100%] items-center justify-between border-t-1 border-gray-200 bg-white px-[1rem] py-1">
+          <p className="text-primary-300 flex h-max items-end gap-1 text-2xl font-[600_!important]">
             AED {data?.offer_price ?? 'N/A'}{' '}
             {data?.actual_price && (
-              <span className="text-description text-[#c2c2c2] line-through">
+              <span className="text-body text-[#c2c2c2] line-through">
                 AED {data.actual_price}
               </span>
             )}
           </p>
-          <button className="btn-primary text-description flex items-center gap-[0.5rem] rounded-full p-3 font-[600] text-white">
-            <MageBox3dDownload className="text-[1rem]" />
+          <button className="btn-primary text-description flex h-[3rem] w-[10rem] items-center gap-[0.5rem] rounded-full p-3 font-[600] text-white">
+            <MageBox3dDownload className="text-[1.5rem]" />
             <span>View in Table</span>
           </button>
         </div>

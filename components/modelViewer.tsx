@@ -10,6 +10,9 @@ interface ModelViewerProps {
   alt?: string;
   label?: string;
   type?: 'category' | 'search' | 'recommended';
+  width?: string;
+  height?: string;
+  showButton?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
@@ -36,16 +39,10 @@ function ModelViewerComponent({
   }, []);
 
   return (
-    <div className="relative !max-w-[300px]">
+    <div className="relative">
       {/* @ts-expect-error - Suppress any remaining TypeScript errors */}
       <model-viewer
         id={`model-viewer-${label}-${type}`}
-        style={{
-          width: '160px',
-          backgroundColor: '#dddddd6f',
-          borderRadius: '10px',
-          height: '160px',
-        }}
         src={src}
         modelCacheSize={15}
         powerPreference="low-power"
@@ -53,13 +50,15 @@ function ModelViewerComponent({
         alt={alt || '3D model'}
         {...props}
       >
-        <button
-          slot="ar-button"
-          className="btn-primary text-description absolute right-1 bottom-1 z-100 flex gap-[0.5rem] rounded-full font-[600] text-white"
-        >
-          <MageBox3dDownload className="text-[1rem]" />
-          <span> View in Table</span>
-        </button>
+        {props?.showButton && (
+          <button
+            slot="ar-button"
+            className="btn-primary text-description absolute right-1 bottom-1 z-100 flex gap-[0.5rem] rounded-full font-[600] text-white"
+          >
+            <MageBox3dDownload className="text-[1rem]" />
+            <span> View in Table</span>
+          </button>
+        )}
         {/* @ts-expect-error - Suppress any remaining TypeScript errors */}
       </model-viewer>
       <div

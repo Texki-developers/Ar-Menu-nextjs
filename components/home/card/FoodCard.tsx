@@ -82,8 +82,14 @@ export default function FoodCard({
           ref={modelRef}
           label={items?.name}
           type={type}
-          // poster={`${IMAGE_URL}${items?.image}`}
           loading="lazy"
+          showButton
+          style={{
+            width: '160px',
+            background: 'linear-gradient(180deg, #fdf6f0 0%, #ffe5d9 100%)',
+            borderRadius: '10px',
+            height: '160px',
+          }}
           auto-rotate
           key={items?._id}
           camera-controls
