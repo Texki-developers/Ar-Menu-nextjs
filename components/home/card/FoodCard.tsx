@@ -28,7 +28,7 @@ export default function FoodCard({
 
   const modelRef = useRef(null);
 
-  const { lang } = useParams();
+  const { lang, vendorId } = useParams();
   const bannerUrl = `https://ar-menu-dev.netlify.app/api/banner?title=${encodeURIComponent(items?.name)}_${100}_${20}_${30}_${12}`;
   return (
     <div
@@ -36,7 +36,7 @@ export default function FoodCard({
       className="grid h-max w-[100%] cursor-pointer grid-cols-[auto_10rem] gap-[1rem] border-b-[1px] border-b-[#c2c2d2] py-[1rem]"
     >
       <Link
-        href={`/${lang}/product/${items?._id}`}
+        href={`/${lang}/product/${items?._id}/${vendorId}`}
         className="flex flex-col gap-[0.5rem]"
         prefetch
       >
