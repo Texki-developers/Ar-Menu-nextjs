@@ -28,7 +28,7 @@ export default function Product() {
   useEffect(() => {
     const getProducts = async () => {
       setLoading(true);
-      const response = await getProductsById(id as string);
+      const response = await getProductsById(id as string, '688df53fd6d8865785192646');
       setData(response?.data || null);
       setLoading(false);
     };
