@@ -45,4 +45,5 @@ export type FoodType =
   | 'PESCATARIAN'
   | 'POLLOTARIAN'
   | 'VEGAN'
-  | 'VEGETARIAN';
+  | 'VEGETARIAN'
+  | 'RAW_VEGAN';

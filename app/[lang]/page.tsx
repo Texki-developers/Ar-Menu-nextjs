@@ -5,7 +5,8 @@ import { ProductService } from '@/core/services/productService';
 import { notFound } from 'next/navigation';
 
 export default async function Home() {
-  const categories = await ProductService.getProductsCategories();
+  const categories = await ProductService.getProductsCategories('688df53fd6d8865785192646');
+  console.log("🚀 ~ Home ~ categories:", categories)
   if (!categories) {
     return notFound();
   }
