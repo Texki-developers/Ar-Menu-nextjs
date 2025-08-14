@@ -4,9 +4,9 @@ import HomeMainSection from '@/components/home/main-section/HomeMainSection';
 import { ProductService } from '@/core/services/productService';
 import { notFound } from 'next/navigation';
 
-export default async function Home() {
-  const categories = await ProductService.getProductsCategories('688df53fd6d8865785192646');
-  console.log("🚀 ~ Home ~ categories:", categories)
+export default async function Home({ params }: { params: { vendorId: string } }) {
+  const { vendorId } = await params; 
+  const categories = await ProductService.getProductsCategories(vendorId);
   if (!categories) {
     return notFound();
   }

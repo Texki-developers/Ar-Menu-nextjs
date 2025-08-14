@@ -20,7 +20,7 @@ import { IMAGE_URL } from '@/core/axios';
 import Link from 'next/link';
 
 export default function Product() {
-  const { id } = useParams();
+  const { id, vendorId } = useParams();
   const [data, setData] = useState<ProductType | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const modelRef = useRef(null);
@@ -28,12 +28,14 @@ export default function Product() {
   useEffect(() => {
     const getProducts = async () => {
       setLoading(true);
-      const response = await getProductsById(id as string, '688df53fd6d8865785192646');
+      const response = await getProductsById(id as string, vendorId as string);
       setData(response?.data || null);
       setLoading(false);
     };
-    getProducts();
-  }, [id]);
+    if (id && vendorId) {
+      getProducts();
+    }
+  }, [id, vendorId]);
 
   if (loading) {
     return (
