@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Manrope } from 'next/font/google';
-import '../../globals.css'
+import '../../globals.css';
 import { getDictionary, ILocale } from '@/lib/dictionaries/config';
 import TranslationWrapper from '@/providers/translation-provider/TranslationProvider';
 

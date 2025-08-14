@@ -26,6 +26,6 @@ export class ApiService {
     } catch (error) {
       console.log({ error });
       return null;
-    } 
+    }
   }
 }
