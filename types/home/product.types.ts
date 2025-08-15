@@ -47,3 +47,11 @@ export type FoodType =
   | 'VEGAN'
   | 'VEGETARIAN'
   | 'RAW_VEGAN';
+
+export interface IVendorDetails {
+  _id: string;
+  name: string;
+  location: string;
+  logo: string;
+  banner: string;
+}

@@ -10,14 +10,14 @@ export default async function Home({
   params: Promise<{ vendorId: string }>;
 }) {
   const { vendorId } = await params;
+  const vendorDetails = await ProductService.getVendorDetails(vendorId);
   const categories = await ProductService.getProductsCategories(vendorId);
   if (!categories) {
     return notFound();
   }
   return (
     <div className="flex flex-col gap-8">
-      <HomeBanner />
-      <Title title="Coz Coffee" subtitle="Karmas, Dubai" />
+      {vendorDetails && <HomeBanner vendorDetails={vendorDetails?.data} />}
       <HomeMainSection categoryData={categories} />
     </div>
   );

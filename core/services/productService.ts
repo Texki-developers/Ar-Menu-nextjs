@@ -1,6 +1,9 @@
 import api from '@/core/axios';
 import { ApiResponse, ApiService } from '../http';
-import { ProductCategoryResponse } from '@/types/home/product.types';
+import {
+  IVendorDetails,
+  ProductCategoryResponse,
+} from '@/types/home/product.types';
 
 export const getProductsCategories = async () => {
   try {
@@ -29,6 +32,19 @@ export class ProductService extends ApiService {
     try {
       const response = await this.get<ProductCategoryResponse>(
         `product/items?vendorId=${vendorId}`
+      );
+      return response;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  static async getVendorDetails(
+    vendorId: string
+  ): Promise<ApiResponse<IVendorDetails> | null> {
+    try {
+      const response = await this.get<IVendorDetails>(
+        `product/items/vendor/${vendorId}`
       );
       return response;
     } catch (error) {
