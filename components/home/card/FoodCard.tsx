@@ -36,7 +36,7 @@ export default function FoodCard({
       className="grid h-max w-[100%] cursor-pointer grid-cols-[auto_10rem] gap-[1rem] border-b-[1px] border-b-[#c2c2d2] py-[1rem]"
     >
       <Link
-        href={`/${lang}/product/${items?._id}/${vendorId}`}
+        href={`/${lang}/${vendorId}/product/${items?._id}/`}
         className="flex flex-col gap-[0.5rem]"
         prefetch
       >

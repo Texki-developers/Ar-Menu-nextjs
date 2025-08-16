@@ -20,7 +20,7 @@ import { IMAGE_URL } from '@/core/axios';
 import Link from 'next/link';
 
 export default function Product() {
-  const { id, vendorId } = useParams();
+  const { id, vendorId, lang } = useParams();
   const [data, setData] = useState<ProductType | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const modelRef = useRef(null);
@@ -72,7 +72,7 @@ export default function Product() {
     <div className="relative flex flex-col gap-[2rem]">
       {/* <ProductImageSwiper image={data?.image as string} /> */}
       <Link
-        href="/"
+        href={`/${lang}/${vendorId}`}
         className="absolute top-[15px] left-[15px] z-200 grid aspect-square h-[40px] w-[40px] place-items-center rounded-full bg-[rgba(255,255,255,0.31)] shadow-2xl backdrop-blur-sm"
       >
         <MaterialSymbolsLightArrowLeftAltRounded />

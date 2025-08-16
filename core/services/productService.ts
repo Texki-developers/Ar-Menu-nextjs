@@ -16,8 +16,13 @@ export const getProductsCategories = async () => {
 };
 
 export const getProductsById = async (id: string, vendorId: string) => {
-  const response = await api?.get(`product/items/${id}?vendorId=${vendorId}`);
-  return response.data;
+  try {
+    const response = await api?.get(`product/items/${id}?vendorId=${vendorId}`);
+    return response.data;
+  } catch (error) {
+    console.log({ error });
+    return null;
+  }
 };
 
 export const searchProducts = async (name: string) => {

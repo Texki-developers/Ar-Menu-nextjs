@@ -20,6 +20,7 @@ const HomeBanner = ({ vendorDetails }: { vendorDetails: IVendorDetails }) => {
               src={IMAGE_URL + vendorDetails?.logo}
               fill
               alt="restaurant logo"
+              className="object-cover"
             />
           </div>
         </div>
