@@ -13,9 +13,9 @@ const HomeBanner = ({ vendorDetails }: { vendorDetails: IVendorDetails }) => {
             src={IMAGE_URL + vendorDetails?.banner}
             alt="Coffee shop"
             fill
-            className="object-cover"
+            className="object-cover object-center"
           />
-          <div className="relative z-10 aspect-square h-full translate-y-1/5 overflow-hidden rounded-lg border-4 border-gray-400">
+          <div className="relative z-10 backdrop-blur-sm bg-black/10 aspect-square h-full translate-y-1/5 overflow-hidden rounded-lg border-4 border-gray-400">
             <Image
               src={IMAGE_URL + vendorDetails?.logo}
               fill

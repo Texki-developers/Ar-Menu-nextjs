@@ -25,7 +25,7 @@ const CategorySection = ({ category }: Props) => {
     <div
       id={`category-${category.category.name}`}
       key={category.category._id}
-      className="mb-4"
+      className=""
     >
       <div
         onClick={() => setShowAll(!showAll)}
