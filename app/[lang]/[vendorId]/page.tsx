@@ -1,5 +1,4 @@
 import HomeBanner from '@/components/home/banner/banner';
-import Title from '@/components/home/title/Title';
 import HomeMainSection from '@/components/home/main-section/HomeMainSection';
 import { ProductService } from '@/core/services/productService';
 import { notFound } from 'next/navigation';
