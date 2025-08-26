@@ -9,6 +9,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import SpecialtyTag from '../../atoms/SpecialtyTag';
 import { IMAGE_URL } from '@/core/axios';
 import { useParams } from 'next/navigation';
+import AddToCartButton from '../../atoms/AddToCartButton';
 
 export default function FoodCard({
   items,
@@ -33,7 +34,7 @@ export default function FoodCard({
   return (
     <div
       ref={containerRef}
-      className="grid h-max w-[100%] cursor-pointer grid-cols-[auto_10rem] gap-[1rem] border-b-[1px] border-b-[#c2c2d2] py-[1rem]"
+      className="grid h-max w-[100%] grid-cols-[auto_10rem] items-end gap-[1rem] border-b-[1px] border-b-[#c2c2d2] py-[1rem]"
     >
       <Link
         href={`/${lang}/${vendorId}/product/${items?._id}/`}
@@ -52,7 +53,7 @@ export default function FoodCard({
             {displayText}
             {!isExpanded && shouldTruncate && (
               <button
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   setExpanded(true);
                 }}
@@ -64,12 +65,17 @@ export default function FoodCard({
           </p>
         </div>
 
-        <p className="text-body mt-auto flex items-center gap-1 font-[600_!important]">
-          AED {items.offer_price}{' '}
-          <span className="text-description text-[#c2c2c2] line-through">
-            AED {items.actual_price}
-          </span>
-        </p>
+        <div className="mt-3 flex flex-col gap-2">
+          <p className="text-body flex items-center gap-1 font-[600_!important]">
+            AED {items.offer_price}{' '}
+            {items.offer_price < items.actual_price && (
+              <span className="text-description text-[#c2c2c2] line-through">
+                AED {items.actual_price}
+              </span>
+            )}
+          </p>
+          <AddToCartButton product={items} className="w-full" />
+        </div>
       </Link>
 
       <div className="relative aspect-square w-[10rem] rounded-[16px]">

@@ -11,6 +11,7 @@ import {
 import RecommendedSwiper from '@/components/RecommendedSwiper';
 import SpecialityTag from '@/components/atoms/SpecialtyTag';
 import Tag from '@/components/atoms/Tag';
+import AddToCartButton from '@/components/atoms/AddToCartButton';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
@@ -125,7 +126,7 @@ export default function Product() {
             <p className="text-gray-500">No recipes available.</p>
           )}
         </div>
-
+        {data && <AddToCartButton product={data} className="w-full" />}
         {(data?.recommended_sides?.length ?? 0) > 0 && (
           <div className="flex w-full flex-col gap-[1rem] overflow-x-auto">
             {' '}

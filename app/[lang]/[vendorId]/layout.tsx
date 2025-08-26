@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Manrope } from 'next/font/google';
 import '../../globals.css';
 import { getDictionary, ILocale } from '@/lib/dictionaries/config';
 import TranslationWrapper from '@/providers/translation-provider/TranslationProvider';
+import Header from '@/components/Header';
 
 const PlusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -32,7 +33,10 @@ export default async function RootLayout({
         className={`${PlusJakartaSans.className} ${ManRopeFont.className} flex w-[100%] justify-center antialiased`}
       >
         <div className="min-h-[100vh] w-[100%] max-w-[450px] bg-white">
-          <TranslationWrapper value={dict}>{children}</TranslationWrapper>
+          <Header />
+          <main className="pb-16">
+            <TranslationWrapper value={dict}>{children}</TranslationWrapper>
+          </main>
         </div>
       </body>
     </html>
