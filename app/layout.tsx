@@ -1,4 +1,7 @@
+'use client';
+
 import { CartProvider } from '@/providers/CartProvider';
+import FoodChatbot from '@/components/chat/FoodChatbot';
 
 export default function RootLayout({
   children,
@@ -8,7 +11,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <CartProvider>{children}</CartProvider>
+        <CartProvider>
+          {children}
+          <FoodChatbot />
+        </CartProvider>
       </body>
     </html>
   );
