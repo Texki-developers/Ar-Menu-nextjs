@@ -13,9 +13,7 @@ export default function CartLayout({
 }) {
   return (
     <div className="min-h-screen bg-gray-50">
-      <main className="pb-16">
-        {children}
-      </main>
+      <main className="pb-16">{children}</main>
     </div>
   );
 }

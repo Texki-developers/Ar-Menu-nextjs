@@ -53,7 +53,7 @@ export default function FoodCard({
             {displayText}
             {!isExpanded && shouldTruncate && (
               <button
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   setExpanded(true);
                 }}

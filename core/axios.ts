@@ -7,7 +7,8 @@ const api = axios.create({
   timeout: 10000, // 10 seconds
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OGFjYmE0NGRmMzQ5ZWY3Y2ZiNDA0YzIiLCJ2ZW5kb3JJZCI6IjY4YWNiYTQ0ZGYzNDllZjdjZmI0MDRiZCIsImlhdCI6MTc1NjE1MDM1MSwiZXhwIjoxNzU2MjM2NzUxfQ.VcXdsKlg-w9rKxwWkixWOPIGiHJTFOuPmlC2mpr6qLE'
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OGFjYmE0NGRmMzQ5ZWY3Y2ZiNDA0YzIiLCJ2ZW5kb3JJZCI6IjY4YWNiYTQ0ZGYzNDllZjdjZmI0MDRiZCIsImlhdCI6MTc1NjE1MDM1MSwiZXhwIjoxNzU2MjM2NzUxfQ.VcXdsKlg-w9rKxwWkixWOPIGiHJTFOuPmlC2mpr6qLE',
   },
 });
 

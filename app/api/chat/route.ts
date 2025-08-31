@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 
 // Initialize the Google Generative AI with API key from environment variables
@@ -25,7 +25,7 @@ Note: Always respond in markdown format for better readability.`;
 export async function POST(req: Request) {
   try {
     const { message } = await req.json();
-    
+
     if (!message) {
       return NextResponse.json(
         { error: 'Message is required' },
@@ -34,18 +34,22 @@ export async function POST(req: Request) {
     }
 
     // Get the generative model
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
 
     // Start a chat session
     const chat = model.startChat({
       history: [
         {
-          role: "user",
+          role: 'user',
           parts: [{ text: SYSTEM_PROMPT }],
         },
         {
-          role: "model",
-          parts: [{ text: "Hello! I'm your food assistant. How can I help you with your order today?" }],
+          role: 'model',
+          parts: [
+            {
+              text: "Hello! I'm your food assistant. How can I help you with your order today?",
+            },
+          ],
         },
       ],
       generationConfig: {

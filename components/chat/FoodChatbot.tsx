@@ -114,7 +114,8 @@ export default function FoodChatbot() {
         maxHeight: '80vh',
         backgroundColor: 'white',
         borderRadius: '0.5rem',
-        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        boxShadow:
+          '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
         display: 'flex',
         flexDirection: 'column',
         border: '1px solid #e5e7eb',
