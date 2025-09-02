@@ -6,19 +6,13 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { Loader2, Trash2, ShoppingBag, ArrowLeft } from 'lucide-react';
+import { Loader2, ShoppingBag, ArrowLeft } from 'lucide-react';
 import { IMAGE_URL } from '@/core/axios';
 import QuantityUpdater from '@/components/atoms/QuantityUpdater';
 
 export default function CartPage() {
-  const {
-    items,
-    loading,
-    error,
-    updateQuantity,
-    subtotal,
-    totalItems,
-  } = useCartStore();
+  const { items, loading, error, updateQuantity, subtotal, totalItems } =
+    useCartStore();
   const { lang, vendorId } = useParams() as { lang: string; vendorId: string };
 
   // Handle loading state
@@ -40,7 +34,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className=" pb-24 h-full">
+    <div className="h-full pb-24">
       <div className="container mx-auto max-w-2xl p-4">
         {/* Header */}
         <div className="mt-12 mb-5 flex items-center gap-3">

@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Manrope } from 'next/font/google';
 import { getDictionary, ILocale } from '@/lib/dictionaries/config';
 import TranslationWrapper from '@/providers/translation-provider/TranslationProvider';
@@ -13,7 +12,6 @@ const ManRopeFont = Manrope({
   subsets: ['latin'],
 });
 
-
 export default async function RootLayout({
   children,
   params,
@@ -22,7 +20,7 @@ export default async function RootLayout({
   params: Promise<{ lang: ILocale }>;
 }>) {
   const { lang } = await params;
-  console.log(await params)
+  console.log(await params);
   const dict = await getDictionary('en');
 
   return (

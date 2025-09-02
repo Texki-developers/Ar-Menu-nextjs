@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import ModelViewer from '../../modelViewer';
 import { ProductType } from '@/types/home/product.types';
 import Link from 'next/link';
@@ -19,13 +19,6 @@ export default function FoodCard({
   type?: 'category' | 'search' | 'recommended';
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const maxChars = 50;
-  const [isExpanded, setExpanded] = useState<boolean>(false);
-  const shouldTruncate = items?.desc.length > maxChars;
-  const displayText =
-    isExpanded || !shouldTruncate
-      ? items?.desc
-      : items?.desc.slice(0, maxChars) + '...';
 
   const modelRef = useRef(null);
 
@@ -50,7 +43,9 @@ export default function FoodCard({
 
         <div>
           <p className="text-description leading-tight text-gray-700">
-            {displayText}
+            {items?.desc?.length > 50
+              ? items?.desc?.slice(0, 50) + '...'
+              : items?.desc}
           </p>
         </div>
 
@@ -63,7 +58,7 @@ export default function FoodCard({
               </span>
             )}
           </p>
-          <AddToCartButton product={items} className="w-full" />
+          <AddToCartButton product={items} />
         </div>
       </Link>
 

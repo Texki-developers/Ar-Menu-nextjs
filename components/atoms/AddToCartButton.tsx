@@ -4,16 +4,13 @@ import React from 'react';
 import { useCartStore } from '@/config/store/cartStore';
 import { ProductType } from '@/types/home/product.types';
 import QuantityUpdater from './QuantityUpdater';
+import { Button } from '../ui/button';
 
 interface AddToCartButtonProps {
   product: ProductType;
-  className?: string;
 }
 
-const AddToCartButton: React.FC<AddToCartButtonProps> = ({
-  product,
-  className = '',
-}) => {
+const AddToCartButton: React.FC<AddToCartButtonProps> = ({ product }) => {
   const { addToCart, items } = useCartStore();
   const cartItem = items.find(item => item._id === product._id);
   const isInCart = !!cartItem;
@@ -46,13 +43,11 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   }
 
   return (
-    <button
-      onClick={handleAddToCart}
-      className={`bg-black btn-primary flex w-full justify-center rounded-lg px-4 py-2 text-base font-semibold text-white transition-all hover:shadow-md ${className}`}
-      aria-label="Add to cart"
-    >
-      <span className="font-bold">Add to Cart</span>
-    </button>
+    <div>
+      <Button variant="primary" onClick={handleAddToCart}>
+        Add to Cart
+      </Button>
+    </div>
   );
 };
 

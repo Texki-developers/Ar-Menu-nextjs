@@ -126,7 +126,7 @@ export default function Product() {
             <p className="text-gray-500">No recipes available.</p>
           )}
         </div>
-        {data && <AddToCartButton product={data} className="w-full" />}
+        {data && <AddToCartButton product={data} />}
         {(data?.recommended_sides?.length ?? 0) > 0 && (
           <div className="flex w-full flex-col gap-[1rem] overflow-x-auto">
             {' '}
