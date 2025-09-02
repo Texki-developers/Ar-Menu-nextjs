@@ -37,7 +37,7 @@ export default function CartPage() {
     <div className="h-full pb-24">
       <div className="container mx-auto max-w-2xl p-4">
         {/* Header */}
-        <div className="mt-12 mb-5 flex items-center gap-3">
+        <div className="my-5 flex items-center gap-3">
           <Link
             href={`/${lang}/${vendorId}`}
             className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm transition-colors hover:bg-gray-50"
