@@ -8,14 +8,10 @@ import CartIcon from './CartIcon';
 const Header: React.FC = () => {
   const { lang, vendorId } = useParams();
   return (
-    <header className="sticky top-0 z-50 flex h-16 w-full max-w-[450px] items-center justify-between border-b bg-white px-4 shadow-sm">
-      <Link href={`/${lang}/${vendorId}`} className="text-xl font-bold">
-        AR Menu
-      </Link>
-      <div className="flex items-center gap-4">
-        <CartIcon />
-      </div>
-    </header>
+
+    <div className="fixed top-4 right-4 z-[999] bg-white rounded-full p-2 shadow-md border border-gray-200">
+      <CartIcon />
+    </div>
   );
 };
 

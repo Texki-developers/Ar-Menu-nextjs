@@ -7,22 +7,23 @@ import Title from '../title/Title';
 const HomeBanner = ({ vendorDetails }: { vendorDetails: IVendorDetails }) => {
   return (
     <>
-      <div>
-        <div className="relative flex h-28 w-full items-center justify-start px-4">
+      <div className='relative'>
+        <div className="relative flex h-50 w-full rounded-b-3xl overflow-hidden items-center justify-start px-4">
           <Image
             src={IMAGE_URL + vendorDetails?.banner}
             alt="Coffee shop"
             fill
             className="object-cover object-center"
           />
-          <div className="relative z-10 aspect-square h-full translate-y-1/5 overflow-hidden rounded-lg border-4 border-gray-400 bg-black/10 backdrop-blur-sm">
-            <Image
-              src={IMAGE_URL + vendorDetails?.logo}
-              fill
-              alt="restaurant logo"
-              className="object-cover"
-            />
-          </div>
+
+        </div>
+        <div className="absolute top-10 left-4 z-10 aspect-square h-30 translate-y-1/2 overflow-hidden rounded-lg border-4 border-gray-400 bg-black/10 backdrop-blur-sm">
+          <Image
+            src={IMAGE_URL + vendorDetails?.logo}
+            fill
+            alt="restaurant logo"
+            className="object-cover"
+          />
         </div>
       </div>
       <Title title={vendorDetails?.name} subtitle={vendorDetails?.location} />

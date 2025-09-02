@@ -1,14 +1,21 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import * as cartService from '@/core/services/cartService';
+import { ProductType } from '@/types/home/product.types';
 
-export type { CartItem } from '@/core/services/cartService';
+// Define CartItem type locally since we're not using the service anymore
+export interface CartItem {
+  _id: string;
+  product: ProductType;
+  quantity: number;
+  variantId?: string;
+  customizations?: Array<{ name: string; value: string }>;
+  price: number; // Store the price at the time of adding to cart
+}
 
 interface CartState {
-  items: cartService.CartItem[];
+  items: CartItem[];
   loading: boolean;
   error: string | null;
-  cartId: string | null;
   subtotal: number;
   totalItems: number;
   currency: string;
@@ -17,15 +24,14 @@ interface CartState {
 interface CartActions {
   // Actions
   addToCart: (
-    productId: string,
+    product: ProductType,
     quantity?: number,
     variantId?: string,
     customizations?: Array<{ name: string; value: string }>
-  ) => Promise<void>;
-  updateQuantity: (cartItemId: string, quantity: number) => Promise<void>;
-  removeFromCart: (cartItemId: string) => Promise<void>;
-  clearCart: () => Promise<void>;
-  fetchCart: () => Promise<void>;
+  ) => void;
+  updateQuantity: (productId: string, quantity: number) => void;
+  removeFromCart: (productId: string) => void;
+  clearCart: () => void;
   // Reset state (for logout)
   reset: () => void;
 }
@@ -37,182 +43,149 @@ export const useCartStore = create<CartState & CartActions>()(
       items: [],
       loading: false,
       error: null,
-      cartId: null,
       subtotal: 0,
       totalItems: 0,
       currency: 'AED',
 
       // Actions
-      fetchCart: async () => {
-        try {
-          set({ loading: true, error: null });
-          const response = await cartService.getCart();
-          if (response.success && response.data) {
-            set({
-              items: response.data.items || [],
-              cartId: response.data._id,
-              subtotal: response.data.subtotal,
-              totalItems: response.data.totalItems,
-              currency: response.data.currency || 'AED',
-              loading: false,
-            });
-          } else {
-            set({
-              error: response.message || 'Failed to fetch cart',
-              loading: false,
-            });
-          }
-        } catch (error: any) {
-          set({
-            error: error.message || 'Failed to fetch cart',
-            loading: false,
-          });
-        }
-      },
-
-      addToCart: async (
-        productId: string,
+      addToCart: (
+        product: ProductType,
         quantity: number = 1,
         variantId?: string,
         customizations?: Array<{ name: string; value: string }>
       ) => {
-        try {
-          set({ loading: true, error: null });
-          const response = await cartService.addToCart(
-            productId,
+        const { items } = get();
+        const existingItemIndex = items.findIndex(
+          item => item._id === product._id
+        );
+
+        if (existingItemIndex >= 0) {
+          // Update existing item quantity
+          const updatedItems = [...items];
+          const newQuantity =
+            updatedItems[existingItemIndex].quantity + quantity;
+
+          if (newQuantity <= 0) {
+            // Remove item if quantity becomes 0 or negative
+            get().removeFromCart(product._id);
+            return;
+          }
+
+          updatedItems[existingItemIndex].quantity = newQuantity;
+
+          // Update the cart state
+          const newSubtotal = updatedItems.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+          );
+          const newTotalItems = updatedItems.reduce(
+            (sum, item) => sum + item.quantity,
+            0
+          );
+
+          set({
+            items: updatedItems,
+            subtotal: newSubtotal,
+            totalItems: newTotalItems,
+            loading: false,
+            error: null,
+          });
+        } else {
+          // Add new item
+          const newItem: CartItem = {
+            _id: product._id,
+            product,
             quantity,
             variantId,
-            customizations
+            customizations,
+            price: product.offer_price || product.actual_price,
+          };
+
+          const updatedItems = [...items, newItem];
+          const newSubtotal = updatedItems.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
           );
-          if (response.success && response.data) {
-            set({
-              items: response.data.items || [],
-              cartId: response.data._id,
-              subtotal: response.data.subtotal,
-              totalItems: response.data.totalItems,
-              currency: response.data.currency || 'USD',
-              loading: false,
-            });
-          } else {
-            throw new Error(response.message || 'Failed to add item to cart');
-          }
-        } catch (error: any) {
-          const errorMessage =
-            error.response?.data?.message ||
-            error.message ||
-            'Failed to add item to cart';
+          const newTotalItems = updatedItems.reduce(
+            (sum, item) => sum + item.quantity,
+            0
+          );
+
           set({
-            error: errorMessage,
+            items: updatedItems,
+            subtotal: newSubtotal,
+            totalItems: newTotalItems,
             loading: false,
+            error: null,
           });
-          throw new Error(errorMessage);
         }
       },
 
-      updateQuantity: async (cartItemId: string, quantity: number) => {
+      updateQuantity: (productId: string, quantity: number) => {
         if (quantity < 1) {
-          await get().removeFromCart(cartItemId);
+          get().removeFromCart(productId);
           return;
         }
 
-        try {
-          set({ loading: true, error: null });
-          const response = await cartService.updateCartItem(
-            cartItemId,
-            quantity
-          );
-          if (response.success && response.data) {
-            set({
-              items: response.data.items || [],
-              subtotal: response.data.subtotal,
-              totalItems: response.data.totalItems,
-              currency: response.data.currency || 'USD',
-              loading: false,
-            });
-          } else {
-            throw new Error(response.message || 'Failed to update cart item');
-          }
-        } catch (error: any) {
-          const errorMessage =
-            error.response?.data?.message ||
-            error.message ||
-            'Failed to update cart item';
-          set({
-            error: errorMessage,
-            loading: false,
-          });
-          throw new Error(errorMessage);
-        }
+        const { items } = get();
+        const updatedItems = items.map(item =>
+          item._id === productId ? { ...item, quantity } : item
+        );
+
+        const newSubtotal = updatedItems.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+        const newTotalItems = updatedItems.reduce(
+          (sum, item) => sum + item.quantity,
+          0
+        );
+
+        set({
+          items: updatedItems,
+          subtotal: newSubtotal,
+          totalItems: newTotalItems,
+          loading: false,
+          error: null,
+        });
       },
 
-      removeFromCart: async (cartItemId: string) => {
-        try {
-          set({ loading: true, error: null });
-          const response = await cartService.removeFromCart(cartItemId);
-          if (response.success && response.data) {
-            set({
-              items: response.data.items || [],
-              subtotal: response.data.subtotal,
-              totalItems: response.data.totalItems,
-              currency: response.data.currency || 'USD',
-              loading: false,
-            });
-          } else {
-            throw new Error(
-              response.message || 'Failed to remove item from cart'
-            );
-          }
-        } catch (error: any) {
-          const errorMessage =
-            error.response?.data?.message ||
-            error.message ||
-            'Failed to remove item from cart';
-          set({
-            error: errorMessage,
-            loading: false,
-          });
-          throw new Error(errorMessage);
-        }
+      removeFromCart: (productId: string) => {
+        const { items } = get();
+        const updatedItems = items.filter(item => item._id !== productId);
+
+        const newSubtotal = updatedItems.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+        const newTotalItems = updatedItems.reduce(
+          (sum, item) => sum + item.quantity,
+          0
+        );
+
+        set({
+          items: updatedItems,
+          subtotal: newSubtotal,
+          totalItems: newTotalItems,
+          loading: false,
+          error: null,
+        });
       },
 
-      clearCart: async () => {
-        try {
-          set({ loading: true, error: null });
-          const response = await cartService.clearCart();
-          if (response.success) {
-            set({
-              items: [],
-              cartId: null,
-              subtotal: 0,
-              totalItems: 0,
-              loading: false,
-            });
-          } else {
-            throw new Error(response.message || 'Failed to clear cart');
-          }
-        } catch (error: any) {
-          const errorMessage =
-            error.response?.data?.message ||
-            error.message ||
-            'Failed to clear cart';
-          set({
-            error: errorMessage,
-            loading: false,
-          });
-          throw new Error(errorMessage);
-        }
+      clearCart: () => {
+        set({
+          items: [],
+          subtotal: 0,
+          totalItems: 0,
+          loading: false,
+          error: null,
+        });
       },
-
-      // Getters are now part of the state
-      // We keep them for backward compatibility
-      getTotalItems: () => get().totalItems,
-      getSubtotal: () => get().subtotal,
 
       // Reset state (for logout)
       reset: () => {
         set({
           items: [],
-          cartId: null,
           loading: false,
           error: null,
           subtotal: 0,
@@ -223,11 +196,10 @@ export const useCartStore = create<CartState & CartActions>()(
     }),
     {
       name: 'cart-storage',
-      storage: createJSONStorage(() => localStorage), // Using localStorage for persistence
+      storage: createJSONStorage(() => sessionStorage), // Using sessionStorage for persistence
       partialize: state => ({
         // Persist all cart data except loading/error states
         items: state.items,
-        cartId: state.cartId,
         subtotal: state.subtotal,
         totalItems: state.totalItems,
         currency: state.currency,

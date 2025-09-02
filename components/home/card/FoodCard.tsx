@@ -19,7 +19,7 @@ export default function FoodCard({
   type?: 'category' | 'search' | 'recommended';
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const maxChars = 80;
+  const maxChars = 50;
   const [isExpanded, setExpanded] = useState<boolean>(false);
   const shouldTruncate = items?.desc.length > maxChars;
   const displayText =
@@ -51,17 +51,6 @@ export default function FoodCard({
         <div>
           <p className="text-description leading-tight text-gray-700">
             {displayText}
-            {!isExpanded && shouldTruncate && (
-              <button
-                onClick={e => {
-                  e.preventDefault();
-                  setExpanded(true);
-                }}
-                className="inline bg-white pl-1 text-blue-500"
-              >
-                Show More
-              </button>
-            )}
           </p>
         </div>
 
