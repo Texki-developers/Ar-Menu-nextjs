@@ -36,15 +36,19 @@ function Home({ categoryData }: IHomeProps) {
     );
   }, [categoryData.data]);
 
+  const filterData = () => {
+    const allProducts = [
+      ...(products?.categorizedProducts?.flatMap(cat => cat.products) || []),
+    ];
+    const results = allProducts?.filter(item =>
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchedProducts(results);
+  };
+
   useEffect(() => {
     if (query) {
-      const allProducts = [
-        ...(products?.categorizedProducts?.flatMap(cat => cat.products) || []),
-      ];
-      const results = allProducts?.filter(item =>
-        item.name.toLowerCase().includes(query.toLowerCase())
-      );
-      setSearchedProducts(results);
+      filterData();
     } else {
       setSearchedProducts([]);
     }
@@ -52,21 +56,24 @@ function Home({ categoryData }: IHomeProps) {
 
   return (
     <>
-      <div className="w-full px-4">
-        <SearchBox query={query} setQuery={setQuery} />
-      </div>
-      {categories?.length > 0 && (
-        <div className="categories-wrapper flex flex-col">
-          <h2 className="text-primary px-4 pb-2">Categories</h2>
-          <CategoriesSwiper categories={categories} />
+      <div className="sticky top-0 z-[9999] grid gap-4 bg-white py-4">
+        <div className="w-full bg-white px-4">
+          <SearchBox query={query} setQuery={setQuery} />
         </div>
-      )}
-      {searchedProducts?.length === 0 && query?.length > 0 && (
-        <NoResult
-          title="Sorry"
-          description="We couldn’t find any matching dishes."
-        />
-      )}
+        {categories?.length > 0 && (
+          <div className="categories-wrapper flex flex-col">
+            <h2 className="text-primary px-4 pb-2">Categories</h2>
+            <CategoriesSwiper categories={categories} />
+          </div>
+        )}
+        {searchedProducts?.length === 0 && query?.length > 0 && (
+          <NoResult
+            title="Sorry"
+            description="We couldn’t find any matching dishes."
+          />
+        )}
+      </div>
+
       <div>
         {query && searchedProducts?.length > 0 && (
           <div className="flex w-full flex-col px-4">
